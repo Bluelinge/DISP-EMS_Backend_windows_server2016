@@ -1,0 +1,1009 @@
+/* SyncDot Design — Components v1.17
+   设计系统组件类 (.sd-*)，配合 tokens.css 使用。
+   基础 reset 会重置 body/标题/盒模型，套用前请确认目标页可接受统一基底。
+*/
+@import url('./tokens.css');
+h1, h2, h3, h4 { font-family: var(--font-display); }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: var(--fs-16); scroll-behavior: smooth; scroll-padding-top: 24px; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.7;
+  font-size: var(--fs-14);
+}
+
+img, svg { max-width: 100%; height: auto; }
+
+a:hover { color: var(--accent-hover); }
+
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  background: var(--page-surface-muted);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--sd-blue-7);
+}
+
+h1, h2, h3, h4 { color: var(--sd-gray-9); font-weight: 500; }
+
+section { margin-bottom: var(--space-8); }
+
+sup a { color: var(--accent); font-size: var(--fs-11); }
+
+h3.block-title { font-size: var(--fs-16); margin: var(--space-6) 0 var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
+
+h3.block-title::before {
+  content: "";
+  flex: none;
+  inline-size: 0.65em;
+  block-size: 1.06em;
+  background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEyOC41NyAxOTYuODYiIHhtbDpzcGFjZT0icHJlc2VydmUiPgogIDxwb2x5Z29uIHBvaW50cz0iNzYuMyAwIDIzLjQ2IDE5Ni44NiAwIDE5Ni44NiA1Mi44MyAwIiBmaWxsPSIjMDA3N0ZBIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIxMjguNTcgMCA3NS43NCAxOTYuODYgNTIuMjggMTk2Ljg2IDEwNS4xMSAwIiBmaWxsPSIjMThDNkU4Ii8+Cjwvc3ZnPgo=") no-repeat center / contain;
+  transform: translateY(var(--ink-nudge));
+}
+
+h4.block-sub { font-size: var(--fs-14); margin: var(--space-5) 0 var(--space-2); color: var(--sd-gray-8); }
+
+.sd-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: 32px; padding: 0 16px;
+  font-size: var(--fs-14); font-family: var(--font-sans);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer; user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent; color: var(--sd-gray-8);
+  white-space: nowrap;
+}
+
+.sd-btn:focus-visible { outline: 2px solid var(--sd-blue-3); outline-offset: 1px; }
+
+.sd-btn--primary { background: var(--sd-blue-6); color: #fff; box-shadow: 0 1px 2px rgba(0,119,250,0.24); }
+
+.sd-btn--primary:hover { background: var(--sd-blue-5); }
+
+.sd-btn--primary:active { background: var(--sd-blue-7); }
+
+.sd-btn--default { background: #fff; border-color: var(--sd-gray-3); }
+
+.sd-btn--default:hover { border-color: var(--sd-blue-5); color: var(--sd-blue-6); }
+
+.sd-btn--default:active { border-color: var(--sd-blue-7); color: var(--sd-blue-7); }
+
+.sd-btn--dashed { background: #fff; border: 1px dashed var(--sd-gray-4); }
+
+.sd-btn--dashed:hover { border-color: var(--sd-blue-5); color: var(--sd-blue-6); }
+
+.sd-btn--text:hover { background: var(--sd-gray-2); }
+
+.sd-btn--link { color: var(--sd-blue-6); padding: 0 8px; }
+
+.sd-btn--link:hover { color: var(--sd-blue-5); }
+
+.sd-btn--danger.sd-btn--primary { background: var(--danger); box-shadow: none; }
+
+.sd-btn--danger.sd-btn--primary:hover { background: #E15B64; }
+
+.sd-btn--danger.sd-btn--default:hover { border-color: var(--danger); color: var(--danger); }
+
+.sd-btn--lg { height: 40px; padding: 0 20px; font-size: var(--fs-16); }
+
+.sd-btn--sm { height: 24px; padding: 0 10px; font-size: var(--fs-12); border-radius: var(--radius-sm); }
+
+.sd-btn--pill { border-radius: var(--radius-pill); }
+
+.sd-btn:disabled, .sd-btn.is-disabled {
+  background: var(--sd-gray-2); border-color: var(--sd-gray-3);
+  color: var(--sd-gray-5); cursor: not-allowed; box-shadow: none;
+}
+
+.sd-btn .spinner {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff;
+  animation: sd-spin 0.8s linear infinite;
+}
+
+.sd-btn--default .spinner { border-color: var(--sd-gray-4); border-top-color: var(--sd-blue-6); }
+
+@keyframes sd-spin { to { transform: rotate(360deg); } }
+
+.sd-tabs { width: 100%; }
+
+.sd-tabs__nav { display: flex; gap: 24px; border-bottom: 1px solid var(--page-border); }
+
+.sd-tabs__tab { padding: 10px 2px; font-size: var(--fs-14); color: var(--text-secondary); cursor: pointer; position: relative; transition: color .2s; background: none; border: none; font-family: var(--font-sans); }
+
+.sd-tabs__tab:hover { color: var(--sd-blue-6); }
+
+.sd-tabs__tab.on { color: var(--sd-blue-6); font-weight: 500; }
+
+.sd-tabs__tab.on::after { content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--sd-blue-6); border-radius: 1px; }
+
+.sd-tabs__pane { display: none; padding: var(--space-4) 2px; color: var(--text-secondary); font-size: var(--fs-14); }
+
+.sd-tabs__pane.on { display: block; }
+
+.sd-tabs--card .sd-tabs__nav { gap: 4px; border-bottom: none; background: var(--sd-gray-2); padding: 4px; border-radius: var(--radius-md); display: inline-flex; }
+
+.sd-tabs--card .sd-tabs__tab { padding: 6px 16px; border-radius: 5px; }
+
+.sd-tabs--card .sd-tabs__tab.on { background: #fff; box-shadow: var(--shadow-1); }
+
+.sd-tabs--card .sd-tabs__tab.on::after { display: none; }
+
+.sd-input, .sd-select {
+  height: 32px; padding: 0 12px; font-size: var(--fs-14); font-family: var(--font-sans);
+  border: 1px solid var(--sd-gray-3); border-radius: var(--radius-md);
+  background: #fff; color: var(--sd-gray-8); width: 220px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.sd-input::placeholder { color: var(--sd-gray-5); }
+
+.sd-input:hover, .sd-select:hover { border-color: var(--sd-blue-5); }
+
+.sd-input:focus, .sd-select:focus { outline: none; border-color: var(--sd-blue-6); box-shadow: 0 0 0 3px var(--sd-blue-2); }
+
+.sd-input.is-error { border-color: var(--danger); }
+
+.sd-input.is-error:focus { box-shadow: 0 0 0 3px var(--danger-soft); }
+
+.sd-input:disabled { background: var(--sd-gray-2); color: var(--sd-gray-5); cursor: not-allowed; }
+
+.sd-field-msg { font-size: var(--fs-12); margin-top: 4px; color: var(--muted); }
+
+.sd-field-msg.is-error { color: var(--danger); }
+
+.sd-form-field { display: inline-flex; flex-direction: column; }
+
+.sd-checkbox, .sd-radio { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: var(--fs-14); color: var(--sd-gray-8); }
+
+.sd-checkbox input, .sd-radio input { display: none; }
+
+.sd-checkbox .box {
+  width: 16px; height: 16px; border: 1px solid var(--sd-gray-4); border-radius: 3px;
+  transition: all .2s; display: grid; place-items: center; background: #fff;
+}
+
+.sd-checkbox input:checked + .box { background: var(--sd-blue-6); border-color: var(--sd-blue-6); }
+
+.sd-checkbox .box svg { opacity: 0; transform: scale(0.5); transition: all .15s; }
+
+.sd-checkbox input:checked + .box svg { opacity: 1; transform: scale(1); }
+
+.sd-radio .box { width: 16px; height: 16px; border: 1px solid var(--sd-gray-4); border-radius: 50%; transition: all .2s; display: grid; place-items: center; background: #fff; }
+
+.sd-radio input:checked + .box { border-color: var(--sd-blue-6); }
+
+.sd-radio .box::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--sd-blue-6); transform: scale(0); transition: transform .15s; }
+
+.sd-radio input:checked + .box::after { transform: scale(1); }
+
+.sd-switch { position: relative; width: 44px; height: 22px; display: inline-block; cursor: pointer; }
+
+.sd-switch input { display: none; }
+
+.sd-switch .track { position: absolute; inset: 0; background: var(--sd-gray-4); border-radius: 999px; transition: background .2s; }
+
+.sd-switch .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: transform .2s; box-shadow: var(--shadow-1); }
+
+.sd-switch input:checked + .track { background: var(--sd-blue-6); }
+
+.sd-switch input:checked + .track::after { transform: translateX(22px); }
+
+.sd-table { width: 100%; border-collapse: collapse; background: #fff; font-size: var(--fs-14); }
+
+.sd-table th { background: var(--sd-gray-1); color: var(--sd-gray-7); font-weight: 500; font-size: var(--fs-13); padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--sd-gray-3); }
+
+.sd-table td { padding: 12px 16px; border-bottom: 1px solid var(--sd-gray-2); color: var(--sd-gray-8); }
+
+.sd-table tbody tr { transition: background .15s; }
+
+.sd-table tbody tr:hover { background: var(--page-brand-soft); }
+
+
+.sd-table .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: var(--fs-13); }
+
+.sd-tag {
+  display: inline-flex; align-items: center; height: 24px; padding: 0 8px;
+  font-size: var(--fs-12); border-radius: var(--radius-sm);
+  background: var(--page-brand-soft); color: var(--sd-blue-7);
+  border: 1px solid transparent;
+}
+
+.sd-tag--line { background: #fff; border-color: var(--sd-blue-3); }
+
+.sd-tag--cyan { background: var(--sd-cyan-1); color: var(--sd-cyan-8); }
+
+.sd-tag--success { background: var(--success-soft); color: #0F7A44; }
+
+.sd-tag--warning { background: var(--warning-soft); color: #9A6107; }
+
+.sd-tag--danger { background: var(--danger-soft); color: #A62B34; }
+
+.sd-tag--gray { background: var(--sd-gray-2); color: var(--sd-gray-7); }
+
+.sd-badge { position: relative; display: inline-flex; }
+
+.sd-badge .dot {
+  position: absolute; top: -4px; right: -4px; min-width: 16px; height: 16px;
+  padding: 0 4px; background: var(--danger); color: #fff; font-size: var(--fs-10);
+  border-radius: 999px; display: grid; place-items: center; border: 2px solid #fff;
+  font-family: var(--font-mono);
+}
+
+.sd-badge-box { width: 32px; height: 32px; border-radius: var(--radius-md); background: var(--sd-gray-2); display: grid; place-items: center; color: var(--sd-gray-6); }
+
+.sd-alert {
+  display: flex; gap: 10px; padding: 10px 14px; border-radius: var(--radius-md);
+  font-size: var(--fs-13); line-height: 1.7;      /* 显式声明：图标对齐依赖行高 */
+  align-items: flex-start; border: 1px solid transparent;
+}
+
+/* 图标与首行文字（标题或描述）视觉居中：行框半高 + 中文墨迹微调 − 自身半高。
+   用 translateY 的 -50%（取元素自身高度）而非 margin，因此不依赖图标具体尺寸。
+   0.85em 为回退值（= line-height 1.7 ÷ 2）；支持 lh 单位时用 0.5lh 自动跟随行高变化。 */
+.sd-alert svg, .sd-alert > img {
+  flex: none;
+  transform: translateY(calc(0.85em + var(--ink-nudge) - 50%));
+}
+@supports (block-size: 1lh) {
+  .sd-alert svg, .sd-alert > img { transform: translateY(calc(0.5lh + var(--ink-nudge) - 50%)); }
+}
+
+.sd-alert--info { background: var(--info-soft); color: var(--sd-blue-8); }
+
+.sd-alert--success { background: var(--success-soft); color: #0F7A44; }
+
+.sd-alert--warning { background: var(--warning-soft); color: #9A6107; }
+
+.sd-alert--danger { background: var(--danger-soft); color: #A62B34; }
+
+.sd-alert strong { display: block; font-size: var(--fs-13); }
+
+/* 轻提示内图标同样叠加墨迹微调（容器为 align-items:center，故只差墨迹偏移） */
+.sd-message svg { transform: translateY(var(--ink-nudge)); }
+.sd-message-wrap { position: fixed; top: 64px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 9998; pointer-events: none; }
+
+.sd-message {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; padding: 9px 16px; border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2); font-size: var(--fs-13); color: var(--sd-gray-8);
+  animation: sd-msg-in .25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes sd-msg-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+
+.sd-pagination { display: flex; gap: 8px; align-items: center; }
+
+.sd-page {
+  min-width: 32px; height: 32px; padding: 0 6px; border-radius: var(--radius-md);
+  border: 1px solid var(--sd-gray-3); background: #fff; color: var(--sd-gray-8);
+  font-size: var(--fs-14); display: grid; place-items: center; cursor: pointer;
+  transition: all .2s; font-family: var(--font-sans);
+}
+
+.sd-page:hover { border-color: var(--sd-blue-5); color: var(--sd-blue-6); }
+
+.sd-page.on { border-color: var(--sd-blue-6); color: var(--sd-blue-6); font-weight: 500; }
+
+.sd-page:disabled { color: var(--sd-gray-5); background: var(--sd-gray-2); cursor: not-allowed; border-color: var(--sd-gray-3); }
+
+.sd-page--arrow img { width: 9px; height: 16px; object-fit: contain; display: block; }
+
+.sd-page--arrow:disabled img { filter: grayscale(1); opacity: 0.4; }
+
+.sd-crumb { display: flex; align-items: center; gap: 8px; font-size: var(--fs-14); color: var(--muted); }
+
+.sd-crumb a { color: var(--text-secondary); }
+
+.sd-crumb a:hover { color: var(--sd-blue-6); }
+
+.sd-crumb .sep { color: var(--sd-gray-4); }
+
+.sd-crumb .cur { color: var(--sd-gray-8); font-weight: 500; }
+
+.sd-progress { width: 100%; max-width: 360px; height: 8px; background: var(--sd-gray-2); border-radius: 999px; overflow: hidden; }
+
+.sd-progress i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--sd-blue-6), var(--sd-cyan-5)); }
+
+/* ==================== 布局骨架 Layout ====================
+   与设计系统文档站同构：顶部栏 + 侧边菜单 + 内容区。
+   内容区不设宽度上限（--content-max: 100%），随视口等宽铺满；
+   长文阅读型页面用 .sd-content--readable 限制行宽。 */
+
+.sd-layout { display: flex; min-height: 100vh; }
+
+.sd-sidebar {
+  position: fixed; inset-block: 0; inline-size: var(--sidebar-w);
+  background: var(--page-surface); border-inline-end: 1px solid var(--page-border);
+  overflow-y: auto; z-index: 100;
+  padding: var(--space-5) var(--space-4);
+}
+.sd-sidebar__brand { display: flex; align-items: center; gap: 10px; padding: 0 8px var(--space-5); }
+.sd-sidebar__brand img { width: 34px; height: 34px; }
+.sd-sidebar__brand-name { font-size: var(--fs-16); font-weight: 500; color: var(--sd-gray-9); line-height: 1.3; }
+.sd-sidebar__brand-sub { font-size: var(--fs-11); color: var(--muted); letter-spacing: .04em; }
+
+.sd-nav-group { margin-bottom: var(--space-4); }
+.sd-nav-group__title { font-size: var(--fs-12); color: var(--muted); padding: 0 10px 6px; letter-spacing: .08em; }
+.sd-nav-item {
+  display: block; padding: 7px 10px 7px 16px;
+  border-radius: var(--radius-md); color: var(--text-secondary);
+  font-size: var(--fs-14); position: relative; text-decoration: none;
+  transition: color .2s, background .2s; cursor: pointer;
+}
+.sd-nav-item:hover { color: var(--accent); background: var(--sd-gray-2); }
+.sd-nav-item.is-active, .sd-nav-item.is-active:hover { color: #fff; background: var(--accent); font-weight: 500; }
+
+.sd-main { flex: 1; margin-inline-start: var(--sidebar-w); min-width: 0; }
+
+.sd-content {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 0 var(--space-5) var(--space-8);
+}
+.sd-content--readable { max-width: 1080px; }
+
+.sd-topbar {
+  height: 56px; display: flex; align-items: center; gap: var(--space-4);
+  padding: 0 var(--space-5); background: #fff;
+  border-bottom: 1px solid var(--page-border);
+  position: sticky; top: 0; z-index: 90;
+}
+
+/* ==================== 布局工具 Layout Utilities ==================== */
+
+.sd-row { display: flex; align-items: center; gap: var(--space-3); }
+.sd-row--between { justify-content: space-between; }
+.sd-row--center { justify-content: center; }
+.sd-row--wrap { flex-wrap: wrap; }
+
+.sd-stack { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.sd-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(24, 1fr); }
+.sd-col-4 { grid-column: span 4; }
+.sd-col-6 { grid-column: span 6; }
+.sd-col-8 { grid-column: span 8; }
+.sd-col-12 { grid-column: span 12; }
+.sd-col-16 { grid-column: span 16; }
+.sd-col-24 { grid-column: span 24; }
+
+/* ==================== 容器 Container ==================== */
+
+.sd-card {
+  background: #fff; border: 1px solid var(--page-border);
+  border-radius: var(--radius-lg); padding: var(--space-5);
+  box-shadow: var(--shadow-1);
+}
+.sd-card--flat { box-shadow: none; }
+/* 标题装饰（等比缩放 / 不裁剪，高度随字号；宽度按素材比例可用 em 微调）
+   · 一级标题 → 右侧蓝色切割元素（.sd-title-cut / .sd-page-head h1）
+   · 二级标题 · 卡片标题 → 左侧双斜线（.sd-title-slashes / .sd-card__title） */
+.sd-card__title { font-size: var(--fs-16); font-weight: 500; color: var(--sd-gray-9); margin-bottom: var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
+.sd-card__title::before {
+  content: ""; flex: none;
+  inline-size: 0.65em; block-size: 1.06em;
+  transform: translateY(var(--ink-nudge));
+  background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEyOC41NyAxOTYuODYiIHhtbDpzcGFjZT0icHJlc2VydmUiPgogIDxwb2x5Z29uIHBvaW50cz0iNzYuMyAwIDIzLjQ2IDE5Ni44NiAwIDE5Ni44NiA1Mi44MyAwIiBmaWxsPSIjMDA3N0ZBIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIxMjguNTcgMCA3NS43NCAxOTYuODYgNTIuMjggMTk2Ljg2IDEwNS4xMSAwIiBmaWxsPSIjMThDNkU4Ii8+Cjwvc3ZnPgo=") no-repeat center / contain;
+}
+.sd-card__title--plain { display: block; }
+.sd-card__title--plain::before { content: none; }
+
+.sd-title-slashes { display: flex; align-items: center; gap: var(--space-2); }
+.sd-title-slashes::before {
+  content: ""; flex: none;
+  inline-size: 0.65em; block-size: 1.06em;
+  transform: translateY(var(--ink-nudge));
+  background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEyOC41NyAxOTYuODYiIHhtbDpzcGFjZT0icHJlc2VydmUiPgogIDxwb2x5Z29uIHBvaW50cz0iNzYuMyAwIDIzLjQ2IDE5Ni44NiAwIDE5Ni44NiA1Mi44MyAwIiBmaWxsPSIjMDA3N0ZBIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIxMjguNTcgMCA3NS43NCAxOTYuODYgNTIuMjggMTk2Ljg2IDEwNS4xMSAwIiBmaWxsPSIjMThDNkU4Ii8+Cjwvc3ZnPgo=") no-repeat center / contain;
+}
+
+.sd-title-cut { display: flex; align-items: center; gap: var(--space-3); }
+.sd-title-cut::after {
+  content: ""; flex: none;
+  inline-size: 0.3919em; block-size: 0.72em;
+  transform: translateY(var(--ink-nudge));
+  background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iLTAuNSAtMTUuOCA5OS4xMSAxODIuMDciIHhtbDpzcGFjZT0icHJlc2VydmUiPgogIDxwb2x5bGluZSBwb2ludHM9IjAgMTUwLjQ2IDM3LjAxIDE1MC40NiA4MC40NCA3NS4yMyAzNy4wMSAwIDAgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDA3N0ZBIiBzdHJva2Utd2lkdGg9IjMwLjYxIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiLz4KPC9zdmc+Cg==") no-repeat center / contain;
+}
+.sd-card__value { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-size: var(--fs-28); font-weight: 600; line-height: 1.43; color: var(--sd-gray-9); }
+.sd-stat__value { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-size: var(--fs-24); font-weight: 600; line-height: 1.3; color: var(--sd-blue-6); }
+
+.sd-page-head { margin-bottom: var(--space-5); }
+.sd-page-head h1 { font-size: var(--fs-24); line-height: 1.4; margin-bottom: var(--space-2); display: flex; align-items: center; gap: var(--space-3); }
+.sd-page-head h1::after {
+  content: ""; flex: none;
+  inline-size: 0.3919em; block-size: 0.72em;
+  transform: translateY(var(--ink-nudge));
+  background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iLTAuNSAtMTUuOCA5OS4xMSAxODIuMDciIHhtbDpzcGFjZT0icHJlc2VydmUiPgogIDxwb2x5bGluZSBwb2ludHM9IjAgMTUwLjQ2IDM3LjAxIDE1MC40NiA4MC40NCA3NS4yMyAzNy4wMSAwIDAgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDA3N0ZBIiBzdHJva2Utd2lkdGg9IjMwLjYxIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiLz4KPC9zdmc+Cg==") no-repeat center / contain;
+}
+.sd-page-head p { color: var(--text-secondary); font-size: var(--fs-14); }
+
+/* ==================== 色卡 Swatch Card ====================
+   VI 品牌色卡模板：颜色底图 + Logo 变体纹理（右上角超框）+ 文字。
+   · 卡片组始终填满容器宽度（auto-fit 网格，单列最小 260px）
+   · 两张卡片用品牌双色（blue / cyan）；三张及以上依次补 blue-1 / cyan-1 / gray-1
+   · 排版按火山引擎 Arco 标准：标题 16/500、值 14、说明 12；间距与圆角走 --space-* / --radius-* */
+
+.sd-swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+.sd-swatch {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  min-height: 148px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: #fff;
+  background-repeat: no-repeat, no-repeat;
+  background-position: calc(100% + 38px) -38px, 0 0;
+  background-size: 168px 168px, 100% 100%;
+}
+
+/* 标题 16 / 500（Arco 卡片标题档） */
+.sd-swatch__title { font-size: var(--fs-16); font-weight: 500; line-height: 1.5; }
+
+/* 值 14（正文档），标题下 4px */
+/* 数值 / 数据行：对齐「字体排印」章的字阶表 —— H1 · 28 / 40(1.43) · 页面主标题，并加粗 600。
+   色卡在数据看板 / 生产信息展示场景里，数值是最重要的一行，因此比标题(16)更大更重。 */
+.sd-swatch__val {
+  font-size: var(--fs-28); line-height: 1.43; font-weight: 600;
+  font-variant-numeric: tabular-nums; opacity: 1; margin-top: var(--space-1);
+}
+
+/* 说明 12（辅助档），值下 4px */
+.sd-swatch__desc { font-size: var(--fs-12); line-height: 1.6; opacity: .85; margin-top: var(--space-1); }
+
+/* 有 icon 版：图标 16px，与标题间距 8px（Arco 图标规范） */
+.sd-swatch__head { display: flex; align-items: center; gap: var(--space-2); }
+.sd-swatch__icon { width: 16px; height: 16px; flex: none; }
+
+/* —— 品牌双色：深底 / 白字 / 白色 Logo 纹理 —— */
+.sd-swatch--blue {
+  background-color: #509BEB;
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjEyIiBkPSJNMjIuOSwxLjdMMjIuOSwxLjdMMjAsMGgwbC0yLjksMS43djBsLTIuOSwxLjdsMCwwTDExLjMsNWgwTDguNSw2LjdoMEw1LjYsOC4zdjBMMi43LDEwbDIuOSwxLjd2MGgwCgkJTDIyLjksMS43eiBNMTEuMyw4LjNMMTEuMyw4LjNMMTEuMyw4LjNMMTEuMyw4LjN6Ii8+Cgk8cG9seWdvbiBmaWxsPSIjRkZGRkZGIiBmaWxsLW9wYWNpdHk9IjAuMTIiIHBvaW50cz0iMjIuOSwxOC4zIDIwLDIwIDIwLDIwIDE3LjEsMjEuNyAxNC4yLDIzLjMgMTEuMywyMS43IDE0LjIsMjAgMTQuMiwyMCAxNC4yLDIwIDE3LjEsMTguMyAxNy4xLDE4LjMKCQkyMCwxNi43IDIwLDE2LjcgCSIvPgo8L2c+CjxnPgoJPHBhdGggZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjEyIiBkPSJNMzQuNCw4LjNMMzQuNCw4LjNsLTIuOS0xLjdMMjguNyw1bC0yLjktMS43djBsLTIuOS0xLjdoMGwtMTcuMywxMHYwaDBsMi45LDEuN3YwaDBsMi45LDEuN2gwbDIuOS0xLjdMMjAsMTAKCQl2MGgwbDIuOSwxLjd2MGgwbDIuOSwxLjdoMGwyLjksMS43bDIuOSwxLjd2MTBsLTIuOSwxLjdsMCwwTDI1LjgsMzBoMGwtMi45LDEuN2gwTDIwLDMzLjNoMFY0MGgwbDIuOS0xLjd2MGgwbDIuOS0xLjdoMGwyLjktMS43CgkJaDBsMi45LTEuN3YwaDBsMi45LTEuN3YwaDBsMi45LTEuN1YxMEwzNC40LDguM3ogTTExLjMsOC4zTDExLjMsOC4zTDExLjMsOC4zTDExLjMsOC4zeiBNMjUuOCwxMEwyNS44LDEwTDI1LjgsMTBMMjUuOCwxMHoKCQkgTTI1LjgsMzMuM0wyNS44LDMzLjNMMjUuOCwzMy4zTDI1LjgsMzMuM3ogTTM0LjQsMjguM0wzNC40LDI4LjNMMzQuNCwyOC4zTDM0LjQsMjguM3oiLz4KPC9nPgo8Zz4KCTxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIGZpbGwtb3BhY2l0eT0iMC4xMiIgcG9pbnRzPSIyNS44LDIwIDI1LjgsMjMuMyAyMi45LDI1IDIyLjksMjUgMjAsMjYuNyAyMCwyNi43IDE3LjEsMjguMyAxNy4xLDI4LjMgMTQuMiwzMCAxMS4zLDI4LjMKCQkxMS4zLDI4LjMgOC41LDI2LjcgNS42LDI1IDUuNiwyNSAyLjcsMjMuMyAyLjcsMTYuNyA1LjYsMTguMyA1LjYsMTguMyA1LjYsMTguMyA4LjUsMjAgOC41LDIwIDExLjMsMjEuNyAxMS4zLDIxLjcgMTEuMywyMS43CgkJMTQuMiwyMy4zIDE3LjEsMjEuNyAyMCwyMCAyMCwyMCAyMi45LDE4LjMgCSIvPgo8L2c+Cjwvc3ZnPgo="), linear-gradient(135deg, #509BEB, #3E86E4);
+}
+.sd-swatch--cyan {
+  background-color: #50D2EB;
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjEyIiBkPSJNMjIuOSwxLjdMMjIuOSwxLjdMMjAsMGgwbC0yLjksMS43djBsLTIuOSwxLjdsMCwwTDExLjMsNWgwTDguNSw2LjdoMEw1LjYsOC4zdjBMMi43LDEwbDIuOSwxLjd2MGgwCgkJTDIyLjksMS43eiBNMTEuMyw4LjNMMTEuMyw4LjNMMTEuMyw4LjNMMTEuMyw4LjN6Ii8+Cgk8cG9seWdvbiBmaWxsPSIjRkZGRkZGIiBmaWxsLW9wYWNpdHk9IjAuMTIiIHBvaW50cz0iMjIuOSwxOC4zIDIwLDIwIDIwLDIwIDE3LjEsMjEuNyAxNC4yLDIzLjMgMTEuMywyMS43IDE0LjIsMjAgMTQuMiwyMCAxNC4yLDIwIDE3LjEsMTguMyAxNy4xLDE4LjMKCQkyMCwxNi43IDIwLDE2LjcgCSIvPgo8L2c+CjxnPgoJPHBhdGggZmlsbD0iI0ZGRkZGRiIgZmlsbC1vcGFjaXR5PSIwLjEyIiBkPSJNMzQuNCw4LjNMMzQuNCw4LjNsLTIuOS0xLjdMMjguNyw1bC0yLjktMS43djBsLTIuOS0xLjdoMGwtMTcuMywxMHYwaDBsMi45LDEuN3YwaDBsMi45LDEuN2gwbDIuOS0xLjdMMjAsMTAKCQl2MGgwbDIuOSwxLjd2MGgwbDIuOSwxLjdoMGwyLjksMS43bDIuOSwxLjd2MTBsLTIuOSwxLjdsMCwwTDI1LjgsMzBoMGwtMi45LDEuN2gwTDIwLDMzLjNoMFY0MGgwbDIuOS0xLjd2MGgwbDIuOS0xLjdoMGwyLjktMS43CgkJaDBsMi45LTEuN3YwaDBsMi45LTEuN3YwaDBsMi45LTEuN1YxMEwzNC40LDguM3ogTTExLjMsOC4zTDExLjMsOC4zTDExLjMsOC4zTDExLjMsOC4zeiBNMjUuOCwxMEwyNS44LDEwTDI1LjgsMTBMMjUuOCwxMHoKCQkgTTI1LjgsMzMuM0wyNS44LDMzLjNMMjUuOCwzMy4zTDI1LjgsMzMuM3ogTTM0LjQsMjguM0wzNC40LDI4LjNMMzQuNCwyOC4zTDM0LjQsMjguM3oiLz4KPC9nPgo8Zz4KCTxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIGZpbGwtb3BhY2l0eT0iMC4xMiIgcG9pbnRzPSIyNS44LDIwIDI1LjgsMjMuMyAyMi45LDI1IDIyLjksMjUgMjAsMjYuNyAyMCwyNi43IDE3LjEsMjguMyAxNy4xLDI4LjMgMTQuMiwzMCAxMS4zLDI4LjMKCQkxMS4zLDI4LjMgOC41LDI2LjcgNS42LDI1IDUuNiwyNSAyLjcsMjMuMyAyLjcsMTYuNyA1LjYsMTguMyA1LjYsMTguMyA1LjYsMTguMyA4LjUsMjAgOC41LDIwIDExLjMsMjEuNyAxMS4zLDIxLjcgMTEuMywyMS43CgkJMTQuMiwyMy4zIDE3LjEsMjEuNyAyMCwyMCAyMCwyMCAyMi45LDE4LjMgCSIvPgo8L2c+Cjwvc3ZnPgo="), linear-gradient(135deg, #50D2EB, #2FC6E2);
+}
+
+/* —— 浅色档：浅底 / 深字 / 淡蓝 Logo 纹理（纹理效果保留） —— */
+.sd-swatch--blue-1 { background-color: var(--sd-blue-1); background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnIGZpbGw9IiMwMDc3RkEiIGZpbGwtb3BhY2l0eT0iMC4xMiI+CiAgICAgICAgPHBhdGggZD0iTTIyLjksMS43TDIyLjksMS43TDIwLDBoMGwtMi45LDEuN3YwbC0yLjksMS43bDAsMEwxMS4zLDVoMEw4LjUsNi43aDBMNS42LDguM3YwTDIuNywxMGwyLjksMS43djBoMAogICAgICAgICAgICAgICAgTDIyLjksMS43eiBNMTEuMyw4LjNMMTEuMyw4LjNMMTEuMyw4LjN6Ii8+CiAgICAgICAgPHBvbHlnb24gcG9pbnRzPSIyMi45LDE4LjMgMjAsMjAgMjAsMjAgMTcuMSwyMS43IDE0LjIsMjMuMyAxMS4zLDIxLjcgMTQuMiwyMCAxNC4yLDIwIDE0LjIsMjAgMTcuMSwxOC4zIDE3LjEsMTguMwogICAgICAgICAgICAgICAgMjAsMTYuNyAyMCwxNi43ICAgICAgICAgIi8+CiAgICAgICAgPHBhdGggZD0iTTM0LjQsOC4zTDM0LjQsOC4zbC0yLjktMS43TDI4LjcsNWwtMi45LTEuN3YwbC0yLjktMS43aDBsLTE3LjMsMTB2MGgwbDIuOSwxLjd2MGgwbDIuOSwxLjdoMGwyLjktMS43TDIwLDEwCiAgICAgICAgICAgICAgICB2MGgwbDIuOSwxLjd2MGgwbDIuOSwxLjdoMGwyLjksMS43bDIuOSwxLjdsMi45LDEuN3YxMGwtMi45LDEuN2wwLDBMMjUuOCwzMGgwbC0yLjksMS43aDBMMjAsMzMuM2gwVjQwaDBsMi45LTEuN3YwaDBsMi45LTEuN2gwbDIuOS0xLjcKICAgICAgICAgICAgICAgIGgwbDIuOS0xLjd2MGgwbDIuOS0xLjd2MGgwbDIuOS0xLjdWMTBMMzQuNCw4LjN6IE0xMS4zLDguM0wxMS4zLDguM0wxMS4zLDguM3ogTTI1LjgsMTBMMjUuOCwxMEwyNS44LDEwTDI1LjgsMTB6CiAgICAgICAgICAgICAgICAgTTI1LjgsMzMuM0wyNS44LDMzLjNMMjUuOCwzMy4zTDI1LjgsMzMuM3ogTTM0LjQsMjguM0wzNC40LDI4LjNMMzQuNCwyOC4zTDM0LjQsMjguM3oiLz4KICAgICAgICA8cG9seWdvbiBwb2ludHM9IjI1LjgsMjAgMjUuOCwyMy4zIDIyLjksMjUgMjIuOSwyNSAyMCwyNi43IDIwLDI2LjcgMTcuMSwyOC4zIDE3LjEsMjguMyAxNC4yLDMwIDExLjMsMjguMwogICAgICAgICAgICAgICAgMTEuMywyOC4zIDguNSwyNi43IDUuNiwyNSA1LjYsMjUgMi43LDIzLjMgMi43LDE2LjcgNS42LDE4LjMgNS42LDE4LjMgOC41LDIwIDguNSwyMCAxMS4zLDIxLjcgMTEuMywyMS43IDExLjMsMjEuNwogICAgICAgICAgICAgICAgMTQuMiwyMy4zIDE3LjEsMjEuNyAyMCwyMCAyMCwyMCAyMi45LDE4LjMgICAgICAgIi8+CjwvZz4KPC9zdmc+Cg=="); color: var(--sd-gray-9); }
+.sd-swatch--cyan-1 { background-color: var(--sd-cyan-1); background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnIGZpbGw9IiMwMDc3RkEiIGZpbGwtb3BhY2l0eT0iMC4xMiI+CiAgICAgICAgPHBhdGggZD0iTTIyLjksMS43TDIyLjksMS43TDIwLDBoMGwtMi45LDEuN3YwbC0yLjksMS43bDAsMEwxMS4zLDVoMEw4LjUsNi43aDBMNS42LDguM3YwTDIuNywxMGwyLjksMS43djBoMAogICAgICAgICAgICAgICAgTDIyLjksMS43eiBNMTEuMyw4LjNMMTEuMyw4LjNMMTEuMyw4LjN6Ii8+CiAgICAgICAgPHBvbHlnb24gcG9pbnRzPSIyMi45LDE4LjMgMjAsMjAgMjAsMjAgMTcuMSwyMS43IDE0LjIsMjMuMyAxMS4zLDIxLjcgMTQuMiwyMCAxNC4yLDIwIDE0LjIsMjAgMTcuMSwxOC4zIDE3LjEsMTguMwogICAgICAgICAgICAgICAgMjAsMTYuNyAyMCwxNi43ICAgICAgICAgIi8+CiAgICAgICAgPHBhdGggZD0iTTM0LjQsOC4zTDM0LjQsOC4zbC0yLjktMS43TDI4LjcsNWwtMi45LTEuN3YwbC0yLjktMS43aDBsLTE3LjMsMTB2MGgwbDIuOSwxLjd2MGgwbDIuOSwxLjdoMGwyLjktMS43TDIwLDEwCiAgICAgICAgICAgICAgICB2MGgwbDIuOSwxLjd2MGgwbDIuOSwxLjdoMGwyLjksMS43bDIuOSwxLjdsMi45LDEuN3YxMGwtMi45LDEuN2wwLDBMMjUuOCwzMGgwbC0yLjksMS43aDBMMjAsMzMuM2gwVjQwaDBsMi45LTEuN3YwaDBsMi45LTEuN2gwbDIuOS0xLjcKICAgICAgICAgICAgICAgIGgwbDIuOS0xLjd2MGgwbDIuOS0xLjd2MGgwbDIuOS0xLjdWMTBMMzQuNCw4LjN6IE0xMS4zLDguM0wxMS4zLDguM0wxMS4zLDguM3ogTTI1LjgsMTBMMjUuOCwxMEwyNS44LDEwTDI1LjgsMTB6CiAgICAgICAgICAgICAgICAgTTI1LjgsMzMuM0wyNS44LDMzLjNMMjUuOCwzMy4zTDI1LjgsMzMuM3ogTTM0LjQsMjguM0wzNC40LDI4LjNMMzQuNCwyOC4zTDM0LjQsMjguM3oiLz4KICAgICAgICA8cG9seWdvbiBwb2ludHM9IjI1LjgsMjAgMjUuOCwyMy4zIDIyLjksMjUgMjIuOSwyNSAyMCwyNi43IDIwLDI2LjcgMTcuMSwyOC4zIDE3LjEsMjguMyAxNC4yLDMwIDExLjMsMjguMwogICAgICAgICAgICAgICAgMTEuMywyOC4zIDguNSwyNi43IDUuNiwyNSA1LjYsMjUgMi43LDIzLjMgMi43LDE2LjcgNS42LDE4LjMgNS42LDE4LjMgOC41LDIwIDguNSwyMCAxMS4zLDIxLjcgMTEuMywyMS43IDExLjMsMjEuNwogICAgICAgICAgICAgICAgMTQuMiwyMy4zIDE3LjEsMjEuNyAyMCwyMCAyMCwyMCAyMi45LDE4LjMgICAgICAgIi8+CjwvZz4KPC9zdmc+Cg=="); color: var(--sd-gray-9); }
+.sd-swatch--gray-1 { background-color: var(--sd-gray-1); background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnIGZpbGw9IiMwMDc3RkEiIGZpbGwtb3BhY2l0eT0iMC4xMiI+CiAgICAgICAgPHBhdGggZD0iTTIyLjksMS43TDIyLjksMS43TDIwLDBoMGwtMi45LDEuN3YwbC0yLjksMS43bDAsMEwxMS4zLDVoMEw4LjUsNi43aDBMNS42LDguM3YwTDIuNywxMGwyLjksMS43djBoMAogICAgICAgICAgICAgICAgTDIyLjksMS43eiBNMTEuMyw4LjNMMTEuMyw4LjNMMTEuMyw4LjN6Ii8+CiAgICAgICAgPHBvbHlnb24gcG9pbnRzPSIyMi45LDE4LjMgMjAsMjAgMjAsMjAgMTcuMSwyMS43IDE0LjIsMjMuMyAxMS4zLDIxLjcgMTQuMiwyMCAxNC4yLDIwIDE0LjIsMjAgMTcuMSwxOC4zIDE3LjEsMTguMwogICAgICAgICAgICAgICAgMjAsMTYuNyAyMCwxNi43ICAgICAgICAgIi8+CiAgICAgICAgPHBhdGggZD0iTTM0LjQsOC4zTDM0LjQsOC4zbC0yLjktMS43TDI4LjcsNWwtMi45LTEuN3YwbC0yLjktMS43aDBsLTE3LjMsMTB2MGgwbDIuOSwxLjd2MGgwbDIuOSwxLjdoMGwyLjktMS43TDIwLDEwCiAgICAgICAgICAgICAgICB2MGgwbDIuOSwxLjd2MGgwbDIuOSwxLjdoMGwyLjksMS43bDIuOSwxLjdsMi45LDEuN3YxMGwtMi45LDEuN2wwLDBMMjUuOCwzMGgwbC0yLjksMS43aDBMMjAsMzMuM2gwVjQwaDBsMi45LTEuN3YwaDBsMi45LTEuN2gwbDIuOS0xLjcKICAgICAgICAgICAgICAgIGgwbDIuOS0xLjd2MGgwbDIuOS0xLjd2MGgwbDIuOS0xLjdWMTBMMzQuNCw4LjN6IE0xMS4zLDguM0wxMS4zLDguM0wxMS4zLDguM3ogTTI1LjgsMTBMMjUuOCwxMEwyNS44LDEwTDI1LjgsMTB6CiAgICAgICAgICAgICAgICAgTTI1LjgsMzMuM0wyNS44LDMzLjNMMjUuOCwzMy4zTDI1LjgsMzMuM3ogTTM0LjQsMjguM0wzNC40LDI4LjNMMzQuNCwyOC4zTDM0LjQsMjguM3oiLz4KICAgICAgICA8cG9seWdvbiBwb2ludHM9IjI1LjgsMjAgMjUuOCwyMy4zIDIyLjksMjUgMjIuOSwyNSAyMCwyNi43IDIwLDI2LjcgMTcuMSwyOC4zIDE3LjEsMjguMyAxNC4yLDMwIDExLjMsMjguMwogICAgICAgICAgICAgICAgMTEuMywyOC4zIDguNSwyNi43IDUuNiwyNSA1LjYsMjUgMi43LDIzLjMgMi43LDE2LjcgNS42LDE4LjMgNS42LDE4LjMgOC41LDIwIDguNSwyMCAxMS4zLDIxLjcgMTEuMywyMS43IDExLjMsMjEuNwogICAgICAgICAgICAgICAgMTQuMiwyMy4zIDE3LjEsMjEuNyAyMCwyMCAyMCwyMCAyMi45LDE4LjMgICAgICAgIi8+CjwvZz4KPC9zdmc+Cg=="); color: var(--sd-gray-9); }
+
+/* ==================== 功能卡 Feature Card ====================
+   用于「能力入口 / 操作引导」：大尺寸 · 渐变底 · 要点列表 + 胶囊操作按钮。
+   与色卡 .sd-swatch（数据看板 / 生产信息展示）用途区分：
+   · 色卡   → 展示「数据与状态」，信息优先，尺寸较小
+   · 功能卡 → 引导「开始一个操作」，行动优先，尺寸更大
+   两者可同屏出现，但不要混用用途。 */
+
+.sd-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-4);
+}
+
+.sd-feature-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  background-repeat: no-repeat, no-repeat;
+  background-position: calc(100% + 30px) -30px, 0 0;
+  background-size: 170px 170px, 100% 100%;
+}
+
+.sd-feature-card__title {
+  font-size: var(--fs-24);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: var(--space-3);
+}
+
+/* 功能卡数值槽位：需要展示数值时用，规格同色卡数值行（H1 页面主标题 + 加粗） */
+.sd-feature-card__value {
+  font-size: var(--fs-28); line-height: 1.43; font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: var(--space-3);
+}
+.sd-feature-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--fs-14);
+  line-height: 1.67;
+  opacity: .9;
+  margin-bottom: var(--space-5);
+}
+
+.sd-feature-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 44px;
+  margin-top: auto;
+  background: rgba(255,255,255,.95);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: var(--fs-14);
+  font-weight: 500;
+  color: var(--sd-gray-9);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow-1);
+  transition: background var(--duration) var(--ease), transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+}
+.sd-feature-card__cta:hover { background: #fff; transform: translateY(-1px); box-shadow: var(--shadow-2); }
+.sd-feature-card__cta svg { width: 16px; height: 16px; flex: none; }
+
+/* 变体 1：点蓝浅渐变（浅底深字 · 卡片堆叠插画） */
+.sd-feature-card--blue {
+  background-color: var(--sd-blue-1);
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cmVjdCB4PSIzNCIgeT0iOCIgd2lkdGg9IjcyIiBoZWlnaHQ9IjkyIiByeD0iMTQiIGZpbGw9IiNGRkZGRkYiIG9wYWNpdHk9IjAuNiIvPjxyZWN0IHg9IjIwIiB5PSIyMiIgd2lkdGg9IjcyIiBoZWlnaHQ9IjkyIiByeD0iMTQiIGZpbGw9IiNGRkZGRkYiIG9wYWNpdHk9IjAuODUiLz48L3N2Zz4="), linear-gradient(160deg, #DCEBFF 0%, var(--sd-blue-1) 45%, #FFFFFF 100%);
+  color: var(--sd-gray-9);
+}
+
+/* 变体 2：点青浅渐变（浅底深字 · 文档插画） */
+.sd-feature-card--cyan {
+  background-color: var(--sd-cyan-1);
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cmVjdCB4PSIxNiIgeT0iMTQiIHdpZHRoPSI4NCIgaGVpZ2h0PSI5NiIgcng9IjEyIiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjk1Ii8+PHJlY3QgeD0iMzAiIHk9IjM0IiB3aWR0aD0iNTYiIGhlaWdodD0iNyIgcng9IjMuNSIgZmlsbD0iIzUwRDJFQiIgb3BhY2l0eT0iMC42Ii8+PHJlY3QgeD0iMzAiIHk9IjUwIiB3aWR0aD0iNTYiIGhlaWdodD0iNyIgcng9IjMuNSIgZmlsbD0iIzUwRDJFQiIgb3BhY2l0eT0iMC40NSIvPjxyZWN0IHg9IjMwIiB5PSI2NiIgd2lkdGg9IjM2IiBoZWlnaHQ9IjciIHJ4PSIzLjUiIGZpbGw9IiM1MEQyRUIiIG9wYWNpdHk9IjAuMyIvPjwvc3ZnPg=="), linear-gradient(160deg, #D6F6FD 0%, var(--sd-cyan-1) 45%, #FFFFFF 100%);
+  color: var(--sd-gray-9);
+}
+
+/* 变体 3：品牌深渐变（深底白字 · 闪光插画），CTA 用品牌蓝字 */
+.sd-feature-card--deep {
+  background-color: #0077FA;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cGF0aCBkPSJNNjIgNiA3MSA0MSAxMDYgNTAgNzEgNTkgNjIgOTQgNTMgNTkgMTggNTAgNTMgNDFaIiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjkiLz48Y2lyY2xlIGN4PSI5OCIgY3k9IjI0IiByPSI3IiBmaWxsPSIjRkZGRkZGIiBvcGFjaXR5PSIwLjU1Ii8+PGNpcmNsZSBjeD0iMzAiIGN5PSI5MiIgcj0iNSIgZmlsbD0iI0ZGRkZGRiIgb3BhY2l0eT0iMC40Ii8+PC9zdmc+"), linear-gradient(160deg, #509BEB 0%, #0077FA 50%, #2FC6E2 100%);
+  color: #fff;
+}
+.sd-feature-card--deep .sd-feature-card__cta { color: var(--sd-blue-7); }
+
+/* ==================== 商品卡 Product Grid（v1.10 新增）====================
+   结构：图区 → 眉标 → 品名 → 价格/副信息 → 操作（后三项可省）。
+   等高对齐：操作区 margin-top:auto 贴卡底，同一行卡片按钮自动对齐。
+   文字色经 WCAG AA 复核：--muted #66748A 白底 4.74:1，品名 --sd-gray-9 12.6:1。 */
+
+.sd-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+.sd-product-card {
+  display: flex; flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--page-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-1);
+  transition: border-color var(--duration) var(--ease),
+              box-shadow var(--duration) var(--ease),
+              transform var(--duration) var(--ease);
+}
+.sd-product-card:hover {
+  border-color: var(--sd-blue-3);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+}
+
+/* 图区：近方形浅灰底，图片等比不变形（object-fit: contain） */
+.sd-product-card__media {
+  display: grid; place-items: center;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  background: var(--sd-gray-1);
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+.sd-product-card__media img,
+.sd-product-card__media video { display: block; width: 100%; height: 100%; object-fit: contain; }
+.sd-product-card__media--wide { aspect-ratio: 4 / 3; }
+
+/* 眉标：短语 / 分类 / 上新，大写 + 字距 */
+.sd-product-card__eyebrow {
+  font-size: var(--fs-12); font-weight: 500; line-height: 1.5;
+  color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: var(--space-1);
+}
+
+/* 品名 */
+.sd-product-card__title {
+  font-size: var(--fs-16); font-weight: 600; line-height: 1.4;
+  color: var(--sd-gray-9);
+  margin-bottom: var(--space-1);
+}
+
+/* 价格 / 副信息 */
+.sd-product-card__price {
+  font-size: var(--fs-14); line-height: 1.5;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 操作区：margin-top:auto 贴卡底 —— 同一行卡片按钮自动对齐 */
+.sd-product-card__actions {
+  display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2);
+  margin-top: auto; padding-top: var(--space-4);
+}
+.sd-product-card__actions .sd-btn { font-weight: 500; }
+
+/* ==================== 图表 Chart（v1.7 新增）====================
+   规格（对齐设计系统第 16 章「数据可视化」）：
+   · 网格线 = 浅灰实线 1px（--chart-grid），禁止虚线
+   · hover 参考线 = --sd-gray-4 极细虚线 1px，dasharray 4 4
+   · 折线描边 2.5px / linecap round；单曲线描边走 点青→点蓝 横向渐变
+   · 面积渐变 = 主色 16% → 0%（纵向）
+   · 柱宽 20px，顶角圆角 3px（用 path 画顶角，不用 rect rx）
+   · 环形图 stroke-width 26 / r 70，左图右表、不用引导线
+   · 数据点 = 外圈 r7 opacity .18 + 内点 r3.5 白描边 2px
+   · Tooltip = 白底 rx 8 + drop-shadow(dy 3 / blur 5 / #101623 12%) */
+
+.sd-chart { display: block; width: 100%; height: auto; }
+.sd-chart text { font-family: var(--font-sans); }
+
+.sd-chart__axis { font-size: var(--fs-11); fill: var(--chart-axis); }
+.sd-chart__grid { stroke: var(--chart-grid); }
+
+/* 交互：数据点 / 参考线 / Tooltip 默认不显示，hover 到命中区（或由 JS 加 .is-active）时出现。
+   结构：每个数据点一组 g.sd-chart__pt，内含透明命中区 + g.sd-chart__focus。
+   两种驱动方式都支持：
+     · 纯 CSS —— .sd-chart__pt:hover 显示该点的高亮，无需 JS（静态图表即用这个）
+     · JS 驱动 —— 命中区上监听 mousemove，给最近的一组成员加 .is-active（大数据量 / 共享 Tooltip 时用） */
+.sd-chart__hit { fill: transparent; }
+.sd-chart__focus {
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--duration) var(--ease);
+}
+.sd-chart__pt:hover .sd-chart__focus,
+.sd-chart__focus.is-active { opacity: 1; }
+
+.sd-chart__ref { stroke: var(--sd-gray-4); stroke-width: 1; stroke-dasharray: 4 4; }
+
+.sd-chart__dot-halo { fill: var(--chart-series-1); fill-opacity: 0.18; }
+.sd-chart__dot { fill: var(--chart-series-1); stroke: #FFFFFF; stroke-width: 2; }
+
+.sd-chart__tt { fill: #FFFFFF; filter: drop-shadow(0 3px 5px rgba(16, 22, 35, 0.12)); }
+.sd-chart__tt-title { font-size: var(--fs-12); fill: var(--sd-gray-6); }
+.sd-chart__tt-label { font-size: var(--fs-12); fill: var(--sd-gray-7); }
+.sd-chart__tt-val { font-size: var(--fs-13); font-weight: 600; fill: var(--sd-gray-9); font-family: var(--font-mono); }
+
+/* 系列色快捷类：避免硬编码 hex。
+   .sd-fill-N 同时设 fill 与 background —— SVG 图形走 fill，HTML 元素（图例点 / 明细点）走 background。
+   .sd-stroke-N 仅用于 SVG 描边。 */
+.sd-fill-1 { fill: var(--chart-series-1); background: var(--chart-series-1); }   .sd-stroke-1 { stroke: var(--chart-series-1); }
+.sd-fill-2 { fill: var(--chart-series-2); background: var(--chart-series-2); }   .sd-stroke-2 { stroke: var(--chart-series-2); }
+.sd-fill-3 { fill: var(--chart-series-3); background: var(--chart-series-3); }   .sd-stroke-3 { stroke: var(--chart-series-3); }
+.sd-fill-4 { fill: var(--chart-series-4); background: var(--chart-series-4); }   .sd-stroke-4 { stroke: var(--chart-series-4); }
+.sd-fill-other { fill: var(--chart-other); background: var(--chart-other); }  .sd-stroke-other { stroke: var(--chart-other); }
+
+.sd-chart-legend {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px;
+  margin-top: var(--space-3); font-size: var(--fs-12); color: var(--text-secondary);
+}
+.sd-chart-legend i {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; margin-inline-end: 6px;
+}
+
+.sd-chart-note { font-size: var(--fs-12); color: var(--muted); margin-top: var(--space-2); line-height: 1.6; }
+
+/* 图表面板（标题 + 内容 + 说明） */
+.sd-chart-card { padding: var(--space-5); }
+.sd-chart-card svg { display: block; width: 100%; height: auto; }
+.sd-chart-card__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-3); margin-bottom: var(--space-3);
+}
+.sd-chart-card__title { font-size: var(--fs-16); font-weight: 500; color: var(--sd-gray-9); }
+.sd-chart-card__title span { font-size: var(--fs-12); font-weight: 400; color: var(--muted); margin-inline-start: var(--space-2); }
+.sd-chart-card__more { font-size: var(--fs-12); color: var(--accent); white-space: nowrap; cursor: pointer; }
+
+/* ==================== 环形图 Donut ====================
+   左图右表（窄屏转为上图下表）；右侧明细表按占比降序，末行为合计。 */
+
+.sd-donut { display: flex; align-items: center; gap: var(--space-5); }
+.sd-donut__fig { flex: none; width: 200px; }
+
+.sd-donut__fig svg { width: 100%; height: auto; }
+.sd-donut__list { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.sd-donut__head {
+  display: flex; gap: var(--space-3); padding: var(--space-1) 0 var(--space-2);
+  font-size: var(--fs-12); color: var(--muted);
+  border-bottom: 1px solid var(--page-border);
+}
+.sd-donut__head .sd-donut__name { color: var(--muted); }
+
+.sd-donut__row {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: 9px 0; border-bottom: 1px solid var(--page-border); font-size: var(--fs-13);
+}
+.sd-donut__row:last-child { border-bottom: none; }
+
+.sd-donut__dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.sd-donut__name { flex: 1; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sd-donut__val { width: 72px; text-align: right; font-family: var(--font-mono); color: var(--sd-gray-8); }
+.sd-donut__pct { width: 48px; text-align: right; color: var(--sd-gray-8); font-weight: 500; }
+
+.sd-donut__row--total {
+  font-weight: 500; color: var(--sd-gray-9); background: var(--page-surface-muted);
+  margin-top: var(--space-1); padding: var(--space-2) 10px; border-radius: var(--radius-md);
+  border-bottom: none;
+}
+.sd-donut__row--total .sd-donut__name { color: var(--sd-gray-9); font-weight: 500; }
+.sd-donut__row--total .sd-donut__val,
+.sd-donut__row--total .sd-donut__pct { font-weight: 600; color: var(--sd-gray-9); }
+
+/* ==================== 仪表盘 Gauge（v1.14 新增）====================
+   形态参考 Arco / VChart Gauge：底轨 + 进度弧 + 中心数值/标题；刻度与指针为可选形态。
+   颜色一律走图表系列色顺序，不硬编码 hex。
+   规格：
+   · 默认 270° 环（开口向下）；180° 半环同样支持，角度由 SVG 弧长与 rotate 决定
+   · 半径 74 / 环厚 16 / viewBox 200；底轨 --sd-gray-2，进度弧圆头端帽
+   · 中心：数值（等宽数字 / 600 / --fs-28）+ 单位 + 标题（--fs-12 / --muted）
+   · 颜色按系列色顺序：--1 蓝 → --2 青 → --3 黄 → --4 绿 → --other 灰
+   · --multi 分段仪表：各段独立成弧、按数据比例分配弧长，段间留 2° 缺口，
+     颜色从 --1 起按序取用（配合 .sd-stroke-N）
+   · --needle 指针形态：180° 环 + 外圈刻度（每 30° 主刻度 / 每 10° 次刻度）+ 指针 + 轴心 */
+
+.sd-gauge { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); }
+.sd-gauge__fig { width: 100%; max-width: 220px; }
+.sd-gauge__fig svg { display: block; width: 100%; height: auto; }
+.sd-gauge__caption { font-size: var(--fs-12); color: var(--muted); text-align: center; }
+
+/* 底轨与进度弧 */
+.sd-gauge__track { fill: none; stroke: var(--sd-gray-2); stroke-width: 16; stroke-linecap: round; }
+.sd-gauge__arc {
+  fill: none; stroke: var(--chart-series-1); stroke-width: 16; stroke-linecap: round;
+  transition: stroke-dasharray var(--duration) var(--ease);
+}
+.sd-gauge--flat .sd-gauge__track,
+.sd-gauge--flat .sd-gauge__arc { stroke-linecap: butt; }
+
+/* 分段仪表：每段一条弧，直角端点
+   底轨压到最浅灰（--sd-gray-1），段间 2° 缺口自然显形，不与彩色分段抢视觉 */
+.sd-gauge__seg { fill: none; stroke-width: 16; stroke-linecap: butt; }
+.sd-gauge--multi .sd-gauge__track { stroke: var(--sd-gray-1); }
+
+/* 指针形态：进度弧端帽改直角 —— 圆头会沿弧多伸 8px（≈6°），与指针读数对不上 */
+.sd-gauge--needle .sd-gauge__track,
+.sd-gauge--needle .sd-gauge__arc { stroke-linecap: butt; }
+
+/* 刻度与指针（指针形态用） */
+.sd-gauge__tick { stroke: var(--sd-gray-4); stroke-width: 2; stroke-linecap: round; }
+.sd-gauge__tick--major { stroke: var(--sd-gray-5); }
+.sd-gauge__needle { stroke: var(--sd-gray-8); stroke-width: 4; stroke-linecap: round; }
+.sd-gauge__pivot { fill: var(--sd-gray-8); }
+.sd-gauge__pivot-core { fill: #FFFFFF; }
+
+/* 中心文字与上下限刻度文字 */
+.sd-gauge__value {
+  font-size: var(--fs-28); font-weight: 600; fill: var(--sd-gray-9);
+  font-variant-numeric: tabular-nums;
+}
+.sd-gauge__unit { font-size: var(--fs-12); font-weight: 500; fill: var(--sd-gray-8); }
+.sd-gauge__label { font-size: var(--fs-12); fill: var(--muted); }
+.sd-gauge__bound { font-size: var(--fs-11); fill: var(--muted); }
+
+/* 颜色变体：按图表系列色顺序取用 */
+.sd-gauge--1 .sd-gauge__arc { stroke: var(--chart-series-1); }
+.sd-gauge--2 .sd-gauge__arc { stroke: var(--chart-series-2); }
+.sd-gauge--3 .sd-gauge__arc { stroke: var(--chart-series-3); }
+.sd-gauge--4 .sd-gauge__arc { stroke: var(--chart-series-4); }
+.sd-gauge--other .sd-gauge__arc { stroke: var(--chart-other); }
+
+@media (max-width: 768px) {
+  .sd-gauge__fig { max-width: 180px; }
+}
+
+/* ==================== 横向柱状图 Bar（Horizontal）（v1.15 新增）====================
+   用于排名 / TOP N 场景（如「操作员完成量」）。横向柱 + 值端圆角 + 柱端数值标签，
+   柱体走 系列色1 → 系列色2 的左到右横向渐变。
+   规格：
+   · 行高 32px、柱厚 20px（与纵向柱一致）、值端圆角 3px（与纵向柱顶角一致）
+   · 行名 .sd-chart__rowlabel（12px --text-secondary，text-anchor:end）
+   · 数值 .sd-chart__barval（11px --muted，等宽数字，text-anchor:start，贴柱端右侧 8px）
+   · 网格线复用 .sd-chart__grid —— 横向柱的值轴在横轴，故网格线为竖线
+   · hover：整行浅灰底块 + 行名/数值转为深色，纯 CSS（.sd-chart__hrow:hover） */
+
+.sd-chart__rowlabel { font-size: var(--fs-12); fill: var(--text-secondary); }
+.sd-chart__barh { fill: var(--chart-series-1); }
+.sd-chart__barval {
+  font-size: var(--fs-11); fill: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 行 hover：命中区 + 浅灰底块，纯 CSS，无需 JS */
+.sd-chart__hhit { fill: transparent; }
+.sd-chart__hhband {
+  fill: var(--sd-gray-1); opacity: 0;
+  transition: opacity var(--duration) var(--ease);
+}
+.sd-chart__hrow:hover .sd-chart__hhband { opacity: 1; }
+.sd-chart__hrow:hover .sd-chart__rowlabel { fill: var(--sd-gray-9); }
+.sd-chart__hrow:hover .sd-chart__barval { fill: var(--sd-gray-9); font-weight: 600; }
+
+/* 系列渐变的上色类：给 <linearGradient> 的 <stop> 用，避免硬编码 hex。
+   默认取前两个系列色（蓝 → 青），需要其它组合时改用 .sd-grad-2 / .sd-grad-3。 */
+.sd-grad-1 { stop-color: var(--chart-series-1); }
+.sd-grad-2 { stop-color: var(--chart-series-2); }
+.sd-grad-3 { stop-color: var(--chart-series-3); }
+.sd-grad-4 { stop-color: var(--chart-series-4); }
+
+/* ==================== 图表出生动效 Chart Entrance（v1.15 新增）====================
+   纯 CSS 入场动效，零 JS。挂到图形元素上即可。
+   时长：生长类 --duration-slow（600ms）；描线 / 扫弧 / 淡入类 --duration-draw（900ms）。
+   错峰：把 .sd-anim-seq 挂到「包住一组图形的 g 元素」上，子元素按 DOM 顺序每级递增 40ms
+        （1–12 级分别 0/40/…/440ms，第 13 个起固定 480ms）；单个元素也可内联 --sd-delay 精确控制。
+   无障碍：全局 @media (prefers-reduced-motion: reduce) 会把 animation 置为 none，
+        元素回到自然状态（图形完整显示），无需额外处理。 */
+
+/* 整体入场：挂在 svg.sd-chart 上，淡入 + 上移 8px */
+.sd-chart-anim { animation: sd-chart-in var(--duration-slow) var(--ease) var(--sd-delay, 0ms) both; }
+@keyframes sd-chart-in { from { opacity: 0; transform: translateY(8px); } }
+
+/* 网格 / 轴 / 图例 / 文字：淡入 */
+.sd-anim-fade { animation: sd-anim-in var(--duration-draw) var(--ease) var(--sd-delay, 0ms) both; }
+@keyframes sd-anim-in { from { opacity: 0; } }
+
+/* 折线：描线生长。--len 必填 = 路径实际长度（可用 path.getTotalLength() 取整后填入） */
+.sd-anim-line {
+  stroke-dasharray: var(--len, 0) var(--len, 0);
+  animation: sd-anim-draw var(--duration-draw) var(--ease) var(--sd-delay, 0ms) both;
+}
+@keyframes sd-anim-draw { from { stroke-dashoffset: var(--len, 0); } to { stroke-dashoffset: 0; } }
+
+/* 面积：淡入并轻微上移 */
+.sd-anim-area { animation: sd-anim-rise var(--duration-draw) var(--ease) var(--sd-delay, 0ms) both; }
+@keyframes sd-anim-rise { from { opacity: 0; transform: translateY(6px); } }
+
+/* 柱：从数值起点生长。transform-box: fill-box 让 origin 取元素自身包围盒（不是整个 SVG）；
+   纵向柱挂在单个柱或「一整列」的 g 元素上都可以 —— 挂在 g 元素上时整列作为一个整体生长。 */
+.sd-anim-bar-y {
+  transform-box: fill-box; transform-origin: bottom;
+  animation: sd-anim-grow-y var(--duration-slow) var(--ease) var(--sd-delay, 0ms) both;
+}
+@keyframes sd-anim-grow-y { from { transform: scaleY(0); } }
+
+.sd-anim-bar-x {
+  transform-box: fill-box; transform-origin: left;
+  animation: sd-anim-grow-x var(--duration-slow) var(--ease) var(--sd-delay, 0ms) both;
+}
+@keyframes sd-anim-grow-x { from { transform: scaleX(0); } }
+
+/* 弧（环形图 / 仪表盘）：从起点扫出。
+   --len 必填 = 本段弧长；元素自身用 stroke-dashoffset 定位时，把该值填进 --off，
+   这样动画终点正好落在元素的自然状态，不会破坏分段定位。 */
+.sd-anim-arc { animation: sd-anim-sweep var(--duration-draw) var(--ease) var(--sd-delay, 0ms) both; }
+@keyframes sd-anim-sweep {
+  from { stroke-dashoffset: calc(var(--off, 0) - var(--len, 0)); }
+  to   { stroke-dashoffset: var(--off, 0); }
+}
+
+/* 指针：从 0% 位置扫到当前读数。
+   --rot 必填 = 指针相对 12 点方向的偏角（度），顺时针为正；轴心坐标默认 100px 100px，
+   换 viewBox 时用 --needle-origin 覆盖。 */
+.sd-anim-needle {
+  transform-box: view-box;
+  transform-origin: var(--needle-origin, 100px 100px);
+  animation: sd-anim-needle-sweep var(--duration-draw) var(--ease) var(--sd-delay, 0ms) both;
+}
+@keyframes sd-anim-needle-sweep { from { transform: rotate(calc(-1 * var(--rot, 0deg))); } }
+
+/* 错峰：子元素按 DOM 顺序递增 40ms */
+.sd-anim-seq > *:nth-child(1) { --sd-delay: 0ms; }
+.sd-anim-seq > *:nth-child(2) { --sd-delay: 40ms; }
+.sd-anim-seq > *:nth-child(3) { --sd-delay: 80ms; }
+.sd-anim-seq > *:nth-child(4) { --sd-delay: 120ms; }
+.sd-anim-seq > *:nth-child(5) { --sd-delay: 160ms; }
+.sd-anim-seq > *:nth-child(6) { --sd-delay: 200ms; }
+.sd-anim-seq > *:nth-child(7) { --sd-delay: 240ms; }
+.sd-anim-seq > *:nth-child(8) { --sd-delay: 280ms; }
+.sd-anim-seq > *:nth-child(9) { --sd-delay: 320ms; }
+.sd-anim-seq > *:nth-child(10) { --sd-delay: 360ms; }
+.sd-anim-seq > *:nth-child(11) { --sd-delay: 400ms; }
+.sd-anim-seq > *:nth-child(12) { --sd-delay: 440ms; }
+.sd-anim-seq > *:nth-child(n+13) { --sd-delay: 480ms; }
+
+/* ==================== 动效可见性 Motion Reveal（v1.16 新增）====================
+   问题：长页面里图表在加载时就把入场动效播完了，滚到跟前已经看不到。
+   做法：给图表容器加 .sd-anim-reveal，动效改成「进入视口时」播放。
+
+   三条路径（自动选择）：
+   1) 有 JS（推荐）：容器加 .sd-anim-reveal，脚本在初始化时立刻加 .js-ready（动画暂停在起点），
+      进入视口时加 .is-inview（开始播放）。脚本见 USAGE.md「让动效可见」。
+   2) 无 JS：浏览器支持滚动驱动动画（Chrome/Edge 115+）时走 @supports 分支 ——
+      容器建立 view 时间线，子元素滚动到视口即播，零脚本。
+   3) 什么也不加：保持原行为（页面加载即播）。
+
+   注意：.js-ready 由脚本添加，因此脚本失效时动效退回「加载即播」，
+   不会出现「动画被暂停 → 图表永远不可见」的死状态。 */
+
+.sd-anim-reveal.js-ready :is(.sd-chart-anim, .sd-anim-fade, .sd-anim-line, .sd-anim-area, .sd-anim-bar-y, .sd-anim-bar-x, .sd-anim-arc, .sd-anim-needle) { animation-play-state: paused; }
+.sd-anim-reveal.is-inview :is(.sd-chart-anim, .sd-anim-fade, .sd-anim-line, .sd-anim-area, .sd-anim-bar-y, .sd-anim-bar-x, .sd-anim-arc, .sd-anim-needle) { animation-play-state: running; }
+
+@supports (animation-timeline: view()) {
+  .sd-anim-reveal:not(.js-ready) {
+    view-timeline-name: --sd-reveal;
+    view-timeline-axis: block;
+  }
+  .sd-anim-reveal:not(.js-ready) :is(.sd-chart-anim, .sd-anim-fade, .sd-anim-line, .sd-anim-area, .sd-anim-bar-y, .sd-anim-bar-x, .sd-anim-arc, .sd-anim-needle) {
+    animation-timeline: --sd-reveal;
+    animation-range: entry 15% cover 45%;
+  }
+}/* ==================== 等分栅格 Grid Utilities ==================== */
+
+.sd-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+.sd-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.sd-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+
+/* ==================== 动效 Motion ==================== */
+
+.sd-ease { transition: all var(--duration) var(--ease); }
+
+.sd-hover-lift { transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease); }
+.sd-hover-lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+
+@keyframes sd-fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.sd-fade-in { animation: sd-fade-in var(--duration) var(--ease) both; }
+
+.sd-stagger > * { animation: sd-fade-in var(--duration) var(--ease) both; }
+.sd-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.sd-stagger > *:nth-child(2) { animation-delay: 60ms; }
+.sd-stagger > *:nth-child(3) { animation-delay: 120ms; }
+.sd-stagger > *:nth-child(4) { animation-delay: 180ms; }
+.sd-stagger > *:nth-child(5) { animation-delay: 240ms; }
+.sd-stagger > *:nth-child(6) { animation-delay: 300ms; }
+
+/* ==================== 响应式 Responsive ==================== */
+
+@media (max-width: 1280px) {
+  .sd-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .sd-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 992px) {
+  .sd-sidebar { transform: translateX(-100%); transition: transform var(--duration) var(--ease); }
+  .sd-sidebar.is-open { transform: none; box-shadow: var(--shadow-3); }
+  .sd-main { margin-inline-start: 0; }
+  .sd-grid { grid-template-columns: repeat(12, 1fr); }
+  .sd-col-4, .sd-col-6, .sd-col-8, .sd-col-12, .sd-col-16 { grid-column: span 12; }
+  /* 环形图：窄屏转为上图下表 */
+  .sd-donut { flex-direction: column; align-items: stretch; gap: var(--space-4); }
+  .sd-donut__fig { align-self: center; }
+}
+@media (max-width: 768px) {
+  .sd-content { padding: 0 var(--space-4) var(--space-6); }
+  .sd-grid { grid-template-columns: 1fr; }
+  .sd-col-4, .sd-col-6, .sd-col-8, .sd-col-12, .sd-col-16, .sd-col-24 { grid-column: span 1; }
+  .sd-grid-2, .sd-grid-3, .sd-grid-4 { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ==== 备用：一级标题切割元素 2x 线宽版 base64 ====
+   配合 viewBox="-0.5 -22.38 106.7 195.21"、inline-size 0.3935em 使用：
+   url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iLTAuNSAtMjIuMzggMTA2LjcgMTk1LjIxIiB4bWw6c3BhY2U9InByZXNlcnZlIj4KICA8cG9seWxpbmUgcG9pbnRzPSIwIDE1MC40NiAzNy4wMSAxNTAuNDYgODAuNDQgNzUuMjMgMzcuMDEgMCAwIDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwNzdGQSIgc3Ryb2tlLXdpZHRoPSI0My43NSIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIi8+Cjwvc3ZnPgo="))
+*/

@@ -1,0 +1,535 @@
+{
+  "model": "DISPEN9243-40",
+  "sourceDocument": "CDMZTA4-ZX-77-507 DISPEN油压减振器总组装作业指导书 - DISPEN9243-40",
+  "sourceWorkbook": "DISPEN9243-40_工艺文件导入模板.xlsx",
+  "steps": [
+    {
+      "stepNo": 1,
+      "title": "穿戴防护用品",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 3
+    },
+    {
+      "stepNo": 2,
+      "title": "核验人员培训和资格证",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 4
+    },
+    {
+      "stepNo": 3,
+      "title": "检查人员身体状态",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 5
+    },
+    {
+      "stepNo": 4,
+      "title": "点检设备并填写设备点检记录",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 6
+    },
+    {
+      "stepNo": 5,
+      "title": "准备工具",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 7
+    },
+    {
+      "stepNo": 6,
+      "title": "准备工装",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 8
+    },
+    {
+      "stepNo": 7,
+      "title": "物料状态点检",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 9
+    },
+    {
+      "stepNo": 8,
+      "title": "核对产品图样、生产明细和工艺文件有效版本",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 10
+    },
+    {
+      "stepNo": 9,
+      "title": "核对设备、工装规程和工具说明书有效版本",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 11
+    },
+    {
+      "stepNo": 10,
+      "title": "核对技术通知和质量记录有效版本",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 12
+    },
+    {
+      "stepNo": 11,
+      "title": "环境点检",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 13
+    },
+    {
+      "stepNo": 12,
+      "title": "点检测量设备",
+      "importance": 1,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "组装温度( ℃)",
+          "type": 2,
+          "referenceValue": "(>17),(=17),(=23),(<23)",
+          "options": [],
+          "sourceTypeMissing": false
+        },
+        {
+          "index": 2,
+          "name": "相对湿度( %RH)",
+          "type": 2,
+          "referenceValue": "(),(),(=70),(<70)",
+          "options": [],
+          "sourceTypeMissing": false
+        },
+        {
+          "index": 3,
+          "name": "清洁度",
+          "type": 1,
+          "referenceValue": "不得有明显落灰\n有明显落灰",
+          "options": [
+            "不得有明显落灰",
+            "有明显落灰"
+          ],
+          "sourceTypeMissing": false
+        }
+      ],
+      "sourceRow": 14
+    },
+    {
+      "stepNo": 13,
+      "title": "核对测量设备精度和检定状态",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 15
+    },
+    {
+      "stepNo": 14,
+      "title": "校验扭矩扳手",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 16
+    },
+    {
+      "stepNo": 15,
+      "title": "产品状态点检",
+      "importance": 1,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "校验结果",
+          "type": 1,
+          "referenceValue": "合格\n不合格",
+          "options": [
+            "合格",
+            "不合格"
+          ],
+          "sourceTypeMissing": false
+        },
+        {
+          "index": 2,
+          "name": "校验时机",
+          "type": 1,
+          "referenceValue": "开工前\n开工时\n结束后",
+          "options": [
+            "开工前",
+            "开工时",
+            "结束后"
+          ],
+          "sourceTypeMissing": false
+        },
+        {
+          "index": 3,
+          "name": "校验设备",
+          "type": 1,
+          "referenceValue": "扭矩校验仪\n其他设备",
+          "options": [
+            "扭矩校验仪",
+            "其他设备"
+          ],
+          "sourceTypeMissing": false
+        }
+      ],
+      "sourceRow": 17
+    },
+    {
+      "stepNo": 16,
+      "title": "穿好气囊夹",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 18
+    },
+    {
+      "stepNo": 17,
+      "title": "对称放置气囊并收紧气囊夹",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 19
+    },
+    {
+      "stepNo": 18,
+      "title": "修剪并压平多余夹带",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 20
+    },
+    {
+      "stepNo": 19,
+      "title": "收紧另一端并检查对称",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 21
+    },
+    {
+      "stepNo": 20,
+      "title": "装配上体总成并拧紧活塞杆",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 22
+    },
+    {
+      "stepNo": 21,
+      "title": "涂抹乐泰222并拧紧活塞",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "活塞杆扭矩( N·m)",
+          "type": 0,
+          "referenceValue": "60",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 2,
+          "name": "螺纹胶",
+          "type": 0,
+          "referenceValue": "乐泰243",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 3,
+          "name": "润滑",
+          "type": 0,
+          "referenceValue": "少许液压油",
+          "options": [],
+          "sourceTypeMissing": true
+        }
+      ],
+      "sourceRow": 23
+    },
+    {
+      "stepNo": 22,
+      "title": "擦拭溢胶并静置",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "活塞扭矩( N·m)",
+          "type": 0,
+          "referenceValue": "30±4",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 2,
+          "name": "乐泰222用量",
+          "type": 0,
+          "referenceValue": "左右各1滴",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 3,
+          "name": "活塞方向",
+          "type": 0,
+          "referenceValue": "压缩阀1、2阀朝上",
+          "options": [],
+          "sourceTypeMissing": true
+        }
+      ],
+      "sourceRow": 24
+    },
+    {
+      "stepNo": 23,
+      "title": "压接底阀总成与内缸",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "静置时间( min)",
+          "type": 0,
+          "referenceValue": "≥15",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 2,
+          "name": "流转条件",
+          "type": 0,
+          "referenceValue": "固化充分",
+          "options": [],
+          "sourceTypeMissing": true
+        }
+      ],
+      "sourceRow": 25
+    },
+    {
+      "stepNo": 24,
+      "title": "套入气囊组成",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "压接方式",
+          "type": 0,
+          "referenceValue": "手动压机或铜棒",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 2,
+          "name": "压装方向",
+          "type": 0,
+          "referenceValue": "按型号端部要求",
+          "options": [],
+          "sourceTypeMissing": true
+        }
+      ],
+      "sourceRow": 26
+    },
+    {
+      "stepNo": 25,
+      "title": "将气囊组成、内缸与底阀组成放入外缸",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 27
+    },
+    {
+      "stepNo": 26,
+      "title": "按型号注入油液",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 28
+    },
+    {
+      "stepNo": 27,
+      "title": "安装活塞环并错开180°",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "注油量(g)",
+          "type": 0,
+          "referenceValue": "300±10",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 2,
+          "name": "注油位置",
+          "type": 0,
+          "referenceValue": "沿外缸壁，不接触端部螺纹",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 3,
+          "name": "过量处理",
+          "type": 0,
+          "referenceValue": "用注射器吸出",
+          "options": [],
+          "sourceTypeMissing": true
+        }
+      ],
+      "sourceRow": 29
+    },
+    {
+      "stepNo": 28,
+      "title": "插入活塞、活塞杆和导向组成",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "开口错开(°)",
+          "type": 0,
+          "referenceValue": "180",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 2,
+          "name": "粗糙面",
+          "type": 0,
+          "referenceValue": "朝外",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 3,
+          "name": "固定套",
+          "type": 0,
+          "referenceValue": "抗蛇行无需使用",
+          "options": [],
+          "sourceTypeMissing": true
+        }
+      ],
+      "sourceRow": 30
+    },
+    {
+      "stepNo": 29,
+      "title": "调整导向盖并装配零件",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 31
+    },
+    {
+      "stepNo": 30,
+      "title": "安装O型圈",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 32
+    },
+    {
+      "stepNo": 31,
+      "title": "涂胶并锁紧螺母",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "安装状态",
+          "type": 0,
+          "referenceValue": "O型圈全部落入槽内",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 2,
+          "name": "保护要求",
+          "type": 0,
+          "referenceValue": "不得划伤O型圈",
+          "options": [],
+          "sourceTypeMissing": true
+        }
+      ],
+      "sourceRow": 33
+    },
+    {
+      "stepNo": 32,
+      "title": "擦净油液和胶水并平放",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "锁紧扭矩(N·m)",
+          "type": 0,
+          "referenceValue": "130±15",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 2,
+          "name": "涂胶方式",
+          "type": 0,
+          "referenceValue": "间隔120°各3滴乐泰222",
+          "options": [],
+          "sourceTypeMissing": true
+        },
+        {
+          "index": 3,
+          "name": "端面状态",
+          "type": 0,
+          "referenceValue": "与外缸端面基本齐平",
+          "options": [],
+          "sourceTypeMissing": true
+        }
+      ],
+      "sourceRow": 34
+    },
+    {
+      "stepNo": 33,
+      "title": "涂防松检查线",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 35
+    },
+    {
+      "stepNo": 34,
+      "title": "关闭电源、风源并点检工具",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [
+        {
+          "index": 1,
+          "name": "防松检查线宽( mm)",
+          "type": 0,
+          "referenceValue": "46056",
+          "options": [],
+          "sourceTypeMissing": true
+        }
+      ],
+      "sourceRow": 36
+    },
+    {
+      "stepNo": 35,
+      "title": "清理作业现场",
+      "importance": 0,
+      "videoName": "NONE",
+      "parameters": [],
+      "sourceRow": 37
+    }
+  ]
+}

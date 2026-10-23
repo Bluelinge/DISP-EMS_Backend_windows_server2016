@@ -1,0 +1,279 @@
+/* SyncDot Design — Design Tokens v1.11
+   品牌识别色: 品牌蓝 #509BEB / 点青 #50D2EB (VI 色彩基因)
+   界面主色: #0077FA (白字对比度约4.2:1) 加深档 #005FD4 (5.9:1)
+   字体: 标题/品牌字 MiSans (font-display:swap, 需 ./fonts/MiSans-*.otf, 缺则回退系统无衬线)
+*/
+:root {
+  
+  --page-bg: #FFFFFF;
+  --page-surface: #F7F9FC;
+  --page-surface-muted: #EFF3F8;
+  --page-text: #2A3649;
+  --page-text-secondary: #45536B;
+  --page-text-muted: #66748A;
+  --page-text-disabled: #97A5B9;
+  --page-border: #E2E8F0;
+  --page-brand: #0077FA;
+  --page-brand-hover: #4B8DFB;
+  --page-brand-active: #005FD4;
+  --page-brand-soft: #E6F1FF;
+  --page-brand-soft-strong: #BFD9FE;
+  --page-brand-text: #1A2332;
+
+  
+  --bg: #FFFFFF;
+  --bg2: #F7F9FC;
+  --rule: #E2E8F0;
+  --ink: #2A3649;
+  --muted: #66748A;
+  --text-secondary: #45536B;
+  --text-disabled: #97A5B9;
+  --accent: #0077FA;
+  --accent-hover: #4B8DFB;
+  --accent-active: #005FD4;
+  --accent-soft: #E6F1FF;
+  --accent2: #18C6E8;
+
+  
+  --sd-blue-1: #E6F1FF;
+  --sd-blue-2: #BFD9FE;
+  --sd-blue-3: #96BFFD;
+  --sd-blue-4: #6EA4FC;
+  --sd-blue-5: #4B8DFB;
+  --sd-blue-6: #0077FA;
+  --sd-blue-7: #005FD4;
+  --sd-blue-8: #0049AD;
+  --sd-blue-9: #003687;
+  --sd-blue-10: #002661;
+
+  
+  --sd-cyan-1: #E8FAFD;
+  --sd-cyan-2: #C2F2FA;
+  --sd-cyan-3: #8FE6F5;
+  --sd-cyan-4: #5CD8EF;
+  --sd-cyan-5: #2FC6E2;
+  --sd-cyan-6: #18C6E8;
+  --sd-cyan-7: #0E8CA6;
+  --sd-cyan-8: #0B6B82;
+  --sd-cyan-9: #084D61;
+  --sd-cyan-10: #063447;
+
+  
+  --sd-gray-1: #F7F9FC;
+  --sd-gray-2: #EFF3F8;
+  --sd-gray-3: #E2E8F0;
+  --sd-gray-4: #C4CEDC;
+  --sd-gray-5: #97A5B9;
+  --sd-gray-6: #66748A;
+  --sd-gray-7: #45536B;
+  --sd-gray-8: #2A3649;
+  --sd-gray-9: #1A2332;
+  --sd-gray-10: #101623;
+
+  
+  --success: #15A35C;
+  --success-soft: #E8F7EF;
+  --warning: #E8930C;
+  --warning-soft: #FEF4E2;
+  --danger: #D9434E;
+  --danger-soft: #FCECEC;
+  --info: #0077FA;
+  --info-soft: #E6F1FF;
+  --reminder: #E8930C;
+  --positive: #15A35C;
+  --negative: #D9434E;
+
+  
+  --chart-series-1: #0077FA;
+  --chart-series-2: #2FC6E2;
+  --chart-series-3: #FFC53D;
+  --chart-series-4: #16B364;
+  --chart-other: #C4CEDC;
+  --chart-accent: #F2A33C;
+  --chart-accent-2: #E15B64;
+  --chart-positive: #15A35C;
+  --chart-warning: #E8930C;
+  --chart-negative: #D9434E;
+  --chart-grid: rgba(42, 54, 73, 0.12);
+  --chart-axis: #66748A;
+  --chart-label: #66748A;
+  --chart-tooltip-bg: #FFFFFF;
+
+  
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 999px;
+  
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --shadow-1: 0 1px 2px rgba(16, 22, 35, 0.04), 0 1px 6px -1px rgba(16, 22, 35, 0.06);
+  --shadow-2: 0 3px 6px -4px rgba(16, 22, 35, 0.08), 0 6px 16px rgba(16, 22, 35, 0.08);
+  --shadow-3: 0 6px 16px -8px rgba(16, 22, 35, 0.12), 0 9px 28px 8px rgba(16, 22, 35, 0.08);
+
+  
+  --control-h: 32px;
+  --control-h-sm: 24px;
+  --control-h-lg: 40px;
+  --font-base: 14px;
+  --font-sm: 12px;
+  --font-lg: 16px;
+  --font-display: 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  /* 数据/指标数字字体。
+     --font-mono 仅授权用于 code / .sd-code / .sd-table .num（代码与表格数字列），
+     其中 'SFMono-Regular' 在 Windows 不存在会回退 Consolas，不宜用于大号数字。
+     卡片指标值、统计数字、编码/文号等「数据数字」统一走 --font-num + tabular-nums。 */
+  --font-num: var(--font-sans);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --duration: 200ms;
+  --duration-fast: 120ms;
+  /* v1.13+ 新增：图表出生动效用。生长类（柱）走 --duration-slow，
+     描线 / 扫弧 / 淡入类（折线、面积、圆弧）走 --duration-draw。 */
+  --duration-slow: 600ms;
+  --duration-draw: 900ms;
+
+  /* 标题装饰垂直微调：中日韩字形墨迹中心比行框中心低约 0.05em，
+     用 translateY 把装饰元素（切割元素 / 双斜线）下移，对齐文字视觉中心。
+     Chrome 实测（MiSans / 微软雅黑；24·20·16px）：不加微调偏差 +0.5~+1.5px，
+     加 0.05em 后残差 ≤0.3px。与字号等比，改这一个值即可整体微调。 */
+  --title-mark-nudge: 0.05em;
+
+  /* 排版字号 token（全站 font-size 统一走这里，基准档为 1440px 设计稿值） */
+  --fs-10: 10px;
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-24: 24px;
+  --fs-28: 28px;
+  --fs-48: 48px;
+
+  /* 布局容器 token
+     --content-max：内容区宽度上限；默认 100% —— 内容随视口等宽铺满，不设固定上限
+     --sidebar-w  ：侧边菜单展开宽（规范值 232px，各断点一致） */
+  --content-max: 100%;
+  --sidebar-w: 232px;
+}
+@font-face { font-family: 'MiSans'; src: url('./fonts/MiSans-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'MiSans'; src: url('./fonts/MiSans-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'MiSans'; src: url('./fonts/MiSans-Semibold.otf') format('opentype'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'MiSans'; src: url('./fonts/MiSans-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+
+/* ==================== 响应式断点 ====================
+   内容区不设宽度上限（100%），从 1440 到 4K 一律随视口等宽铺满；此处只放大字号与间距。
+   大屏放大（min-width 上探）：≥1920 ×1.10；≥2560 ×1.22，字号取整。
+   用法：媒体查询内重定义 :root 变量，全站引用处自动生效。
+   （侧栏展开宽统一 232px，各断点保持一致） */
+@media (min-width: 1920px) {
+  :root {
+    --fs-10: 11px; --fs-11: 12px; --fs-12: 13px; --fs-13: 14px;
+    --fs-14: 15px; --fs-16: 18px; --fs-24: 26px; --fs-28: 31px; --fs-48: 53px;
+    --space-1: 4px; --space-2: 9px; --space-3: 13px; --space-4: 18px;
+    --space-5: 26px; --space-6: 35px; --space-7: 53px; --space-8: 70px;
+  }
+}
+@media (min-width: 2560px) {
+  :root {
+    --fs-10: 12px; --fs-11: 13px; --fs-12: 15px; --fs-13: 16px;
+    --fs-14: 17px; --fs-16: 20px; --fs-24: 29px; --fs-28: 34px; --fs-48: 59px;
+    --space-1: 5px; --space-2: 10px; --space-3: 15px; --space-4: 20px;
+    --space-5: 29px; --space-6: 39px; --space-7: 59px; --space-8: 78px;
+  }
+}
+@media (max-width: 768px) {
+  :root { --content-max: 100%; }
+}
+
+/* ==================== 项目桥接层 — DISP-MES 原型 ====================
+   把 style.css 使用的语义别名全部映射到 SyncDot Design v1.3 token：
+   任何尺寸/颜色都经由设计系统变量，因此自动继承 v1.3 的
+   大屏放大断点（≥1920 ×1.10 / ≥2560 ×1.22）与字号阶梯。 */
+:root {
+  /* 品牌识别色（VI 色彩基因，v1.3 token 未收录，按品牌规范常量） */
+  --brand-blue: #509BEB;
+  --brand-cyan: #50D2EB;
+
+  /* 界面主色别名 → --sd-blue 阶梯 */
+  --ui-primary: var(--sd-blue-6);
+  --ui-primary-hover: var(--sd-blue-5);
+  --ui-primary-active: var(--sd-blue-7);
+  --ui-primary-soft: var(--sd-blue-1);
+  --ui-primary-soft-strong: var(--sd-blue-2);
+  --ui-primary-30: var(--sd-blue-3);
+
+  /* 中性色别名 → --sd-gray 阶梯 */
+  --ink-1: var(--sd-gray-8);
+  --ink-2: var(--sd-gray-7);
+  --ink-3: var(--sd-gray-6);
+  --ink-4: var(--sd-gray-5);
+  --surface-0: #FFFFFF;
+  --surface-1: var(--sd-gray-1);
+  --surface-2: var(--sd-gray-2);
+  --line-1: var(--sd-gray-3);
+  --line-2: var(--sd-gray-4);
+
+  /* 功能色别名（Tag/Alert 文字用规范 AA 加深档） */
+  --func-success: var(--success);
+  --func-success-soft: var(--success-soft);
+  --func-warning: var(--warning);
+  --func-warning-soft: var(--warning-soft);
+  --func-danger: var(--danger);
+  --func-danger-soft: var(--danger-soft);
+
+  /* 品牌渐变（仅用于非按钮的品牌装饰：登录面板 / 进度带 / 双色斜线） */
+  --g-brand: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-cyan) 100%);
+  --g-brand-line: linear-gradient(90deg, var(--brand-blue), var(--brand-cyan));
+  --g-brand-panel: linear-gradient(135deg, #1466E0 0%, #1E78F0 55%, var(--brand-blue) 100%);
+  --g-steps: linear-gradient(90deg, var(--sd-blue-6) 0%, var(--brand-blue) 100%);
+  --g-ui: linear-gradient(135deg, var(--sd-blue-6) 0%, var(--sd-blue-7) 100%);
+
+  /* 阴影别名 → --shadow 阶梯 */
+  --sh-soft: var(--shadow-1);
+  --sh-card: var(--shadow-2);
+  --sh-pop: var(--shadow-3);
+  --sh-btn: 0 1px 2px rgba(0, 119, 250, 0.24);
+
+  /* 字号别名 → v1.3 字号阶梯 */
+  --fs-display: var(--fs-48);
+  --fs-h1: var(--fs-24);
+  --fs-h2: var(--fs-16);
+  --fs-h3: var(--fs-16);
+  --fs-lg: var(--fs-16);
+  --fs-base: var(--fs-14);
+  --fs-sm: var(--fs-12);
+  --fs-xs: var(--fs-12);
+  --lh-base: 1.7;
+  --ls-tight: 0.5px;
+  --ls-normal: 0;
+
+  /* 数字字体（v1.3 未定义"卡片指标/数据数字"专用字体：
+     规范中 --font-mono 仅授权用于 .sd-table .num 与 code 代码片段，
+     故数据数字统一走正文字体 + 等宽数字特性 tabular-nums，
+     保证列对齐的同时字形与正文一致。若后续规范补数字专用字体，
+     只需改这一处。） */
+  --font-num: var(--font-sans);
+
+  /* 图标尺度（规范未定义，按 4 的倍数） */
+  --icon-sm: 14px;
+  --icon-md: 16px;
+  --icon-lg: 20px;
+  --icon-xl: 24px;
+  --icon-2xl: 40px;
+
+  /* 容器 / 间距别名 → --space-* 与布局 token */
+  --pad-page: var(--space-5);
+  --pad-card: var(--space-5);
+  --gap-page: var(--space-5);
+  --radius-card: var(--radius-lg);
+}

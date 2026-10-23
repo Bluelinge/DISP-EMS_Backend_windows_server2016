@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.sites-runtime/
+.env
+.env.local
+deploy/.env
+deploy/offline/
+deploy/offline-linux-ubuntu22-x86_64/
+deploy/disp-ems-ubuntu22-x86_64-offline.tar
+deploy/windows-server-2016-x64/offline/
+deploy/windows-server-2016-x64/*.zip
+deploy/DISP-EMS-Windows-Server-2016-x64-offline.zip

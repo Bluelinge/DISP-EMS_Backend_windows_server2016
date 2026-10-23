@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+SEED_MOUNT=/mnt/disp-ems-seed
+PAYLOAD="$SEED_MOUNT/payload"
+APP_DIR=/opt/disp-ems/app
+UPDATE_MARKER=/var/lib/disp-ems-release
+VM_ADDRESS=__VM_ADDRESS__
+HOST_ADDRESS=__HOST_ADDRESS__
+
+note() { echo "==> $*"; }
+fail() { echo "ERROR: $*" >&2; exit 1; }
+
+mount_seed() {
+  mkdir -p "$SEED_MOUNT"
+  if ! mountpoint -q "$SEED_MOUNT"; then
+    local seed_device
+    seed_device="$(blkid -L CIDATA 2>/dev/null || true)"
+    [[ -n "$seed_device" ]] || seed_device="$(blkid -L cidata 2>/dev/null || true)"
+    [[ -n "$seed_device" ]] || fail 'CIDATA seed disk was not found'
+    mount -o ro "$seed_device" "$SEED_MOUNT"
+  fi
+}
+
+install_docker() {
+  [[ -f "$PAYLOAD/docker-engine.tgz" ]] || fail 'Missing bundled Docker Engine'
+  [[ -f "$PAYLOAD/docker-compose" ]] || fail 'Missing bundled Docker Compose plugin'
+  note 'Installing bundled Ubuntu runtime packages'
+  dpkg -i "$PAYLOAD/runtime-debs"/*.deb >/var/log/disp-ems-runtime-dpkg.log 2>&1 || true
+  dpkg --configure -a >/var/log/disp-ems-runtime-configure.log 2>&1 || true
+
+  if ! command -v docker >/dev/null 2>&1; then
+    note 'Installing bundled Docker Engine'
+    local tmp_dir
+    tmp_dir="$(mktemp -d)"
+    tar -xzf "$PAYLOAD/docker-engine.tgz" -C "$tmp_dir"
+    install -m 0755 "$tmp_dir/docker/"* /usr/local/bin/
+    rm -rf "$tmp_dir"
+  fi
+  getent group docker >/dev/null 2>&1 || groupadd --system docker
+  cat >/etc/systemd/system/docker.service <<'UNIT'
+[Unit]
+Description=Docker Application Container Engine (DISP-EMS offline)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/dockerd --host=unix:///var/run/docker.sock --userland-proxy-path=/usr/local/bin/docker-proxy
+ExecReload=/bin/kill -s HUP $MAINPID
+TimeoutStartSec=0
+Restart=always
+RestartSec=2
+LimitNOFILE=infinity
+TasksMax=infinity
+Delegate=yes
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+UNIT
+  systemctl daemon-reload
+  systemctl enable --now docker
+  mkdir -p /usr/local/lib/docker/cli-plugins
+  install -m 0755 "$PAYLOAD/docker-compose" /usr/local/lib/docker/cli-plugins/docker-compose
+  for attempt in $(seq 1 60); do
+    docker info >/dev/null 2>&1 && return 0
+    sleep 2
+  done
+  fail 'Docker Engine did not become ready'
+}
+
+write_update_service() {
+  cat >/usr/local/sbin/disp-ems-update <<'SCRIPT'
+#!/usr/bin/env bash
+set -Eeuo pipefail
+SEED_MOUNT=/mnt/disp-ems-seed
+PAYLOAD="$SEED_MOUNT/payload"
+APP_DIR=/opt/disp-ems/app
+UPDATE_MARKER=/var/lib/disp-ems-release
+HOST_ADDRESS=__HOST_ADDRESS__
+
+mkdir -p "$SEED_MOUNT" /var/lib
+if ! mountpoint -q "$SEED_MOUNT"; then
+  seed_device="$(blkid -L CIDATA 2>/dev/null || true)"
+  [[ -n "$seed_device" ]] || seed_device="$(blkid -L cidata 2>/dev/null || true)"
+  [[ -n "$seed_device" ]] || exit 0
+  mount -o ro "$seed_device" "$SEED_MOUNT"
+fi
+
+[[ -f "$PAYLOAD/app/disp-ems-images.tar" ]] || exit 0
+release="$(cat "$PAYLOAD/app/release.txt" 2>/dev/null || sha256sum "$PAYLOAD/app/disp-ems-images.tar" | awk '{print $1}')"
+installed="$(cat "$UPDATE_MARKER" 2>/dev/null || true)"
+if [[ "$release" == "$installed" && -f "$APP_DIR/docker-compose.yml" ]]; then
+  exit 0
+fi
+
+mkdir -p "$APP_DIR"
+if [[ ! -f "$APP_DIR/.env" ]]; then
+  cp "$PAYLOAD/app/.env.example" "$APP_DIR/.env"
+  sed -i \
+    -e 's|^MYSQL_PASSWORD=.*|MYSQL_PASSWORD=dispadmin|' \
+    -e 's|^MYSQL_ROOT_PASSWORD=.*|MYSQL_ROOT_PASSWORD=dispadmin|' \
+    -e 's|^REDIS_PASSWORD=.*|REDIS_PASSWORD=dispadmin|' \
+    -e 's|^MINIO_ROOT_PASSWORD=.*|MINIO_ROOT_PASSWORD=dispadmin|' \
+    -e 's|^BOOTSTRAP_ADMIN_PASSWORD=.*|BOOTSTRAP_ADMIN_PASSWORD=dispadmin|' \
+    -e "s|^MINIO_PUBLIC_ENDPOINT=.*|MINIO_PUBLIC_ENDPOINT=http://$HOST_ADDRESS:9000|" \
+    -e "s|^PUBLIC_ORIGIN=.*|PUBLIC_ORIGIN=http://$HOST_ADDRESS:8089|" \
+    "$APP_DIR/.env"
+  chmod 600 "$APP_DIR/.env"
+fi
+cp "$PAYLOAD/app/docker-compose.yml" "$APP_DIR/docker-compose.yml"
+cp "$PAYLOAD/app/.env.example" "$APP_DIR/.env.example"
+docker load -i "$PAYLOAD/app/disp-ems-images.tar"
+docker compose --project-name disp-ems --env-file "$APP_DIR/.env" -f "$APP_DIR/docker-compose.yml" up -d --no-build
+printf '%s\n' "$release" >"$UPDATE_MARKER"
+SCRIPT
+  chmod 0755 /usr/local/sbin/disp-ems-update
+  cat >/etc/systemd/system/disp-ems-update.service <<'UNIT'
+[Unit]
+Description=DISP-EMS offline application update
+After=docker.service network-online.target
+Wants=network-online.target
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/disp-ems-update
+
+[Install]
+WantedBy=multi-user.target
+UNIT
+  systemctl daemon-reload
+  systemctl enable disp-ems-update.service
+}
+
+mount_seed
+install_docker
+write_update_service
+systemctl start disp-ems-update.service
+echo "DISP-EMS is ready at http://$HOST_ADDRESS:8089"
+echo 'Initial administrator: ADMIN-001 / dispadmin'

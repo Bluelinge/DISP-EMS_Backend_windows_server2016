@@ -1,0 +1,17 @@
+.git
+.env
+.env.*
+node_modules
+dist
+Data
+server/target
+server/.mvn
+deploy/.env
+deploy/offline
+deploy/offline-linux-ubuntu22-x86_64
+deploy/disp-ems-ubuntu22-x86_64-offline.tar
+deploy/windows-server-2016-x64/offline
+deploy/windows-server-2016-x64/offline.previous-*
+deploy/windows-server-2016-x64/.disp-ems-build-*
+deploy/DISP-EMS-Windows-Server-2016-x64-offline.zip
+deploy/DISP-EMS-Windows-Server-2016-x64-offline.zip.tmp.zip

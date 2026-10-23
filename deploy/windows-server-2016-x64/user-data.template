@@ -1,0 +1,33 @@
+#cloud-config
+hostname: disp-ems-linux
+manage_etc_hosts: true
+timezone: Asia/Shanghai
+ssh_pwauth: false
+write_files:
+  - path: /etc/netplan/99-disp-ems.yaml
+    permissions: '0600'
+    content: |
+      network:
+        version: 2
+        renderer: networkd
+        ethernets:
+          disp_ems:
+            match:
+              name: "e*"
+            dhcp4: false
+            addresses:
+              - __VM_ADDRESS__/24
+            routes:
+              - to: 0.0.0.0/0
+                via: __GATEWAY_ADDRESS__
+            nameservers:
+              addresses:
+                - __GATEWAY_ADDRESS__
+runcmd:
+  - [ bash, -lc, "netplan generate && netplan apply || true" ]
+  - |
+    mkdir -p /mnt/disp-ems-seed
+    seed_device="$(blkid -L CIDATA 2>/dev/null || blkid -L cidata 2>/dev/null)"
+    test -n "$seed_device"
+    mount -o ro "$seed_device" /mnt/disp-ems-seed
+    bash /mnt/disp-ems-seed/bootstrap.sh

@@ -1,0 +1,197 @@
+/* SyncDot Design — Design Tokens v1.17
+   品牌识别色: 品牌蓝 #509BEB / 点青 #50D2EB (VI 色彩基因)
+   界面主色: #0077FA (白字对比度约4.2:1) 加深档 #005FD4 (5.9:1)
+   字体: 标题/品牌字 MiSans (font-display:swap, 需 ./fonts/MiSans-*.otf, 缺则回退系统无衬线)
+*/
+:root {
+  
+  --page-bg: #FFFFFF;
+  --page-surface: #F7F9FC;
+  --page-surface-muted: #EFF3F8;
+  --page-text: #2A3649;
+  --page-text-secondary: #45536B;
+  --page-text-muted: #66748A;
+  --page-text-disabled: #97A5B9;
+  --page-border: #E2E8F0;
+  --page-brand: #0077FA;
+  --page-brand-hover: #4B8DFB;
+  --page-brand-active: #005FD4;
+  --page-brand-soft: #E6F1FF;
+  --page-brand-soft-strong: #BFD9FE;
+  --page-brand-text: #1A2332;
+
+  
+  --bg: #FFFFFF;
+  --bg2: #F7F9FC;
+  --rule: #E2E8F0;
+  --ink: #2A3649;
+  --muted: #66748A;
+  --text-secondary: #45536B;
+  --text-disabled: #97A5B9;
+  --accent: #0077FA;
+  --accent-hover: #4B8DFB;
+  --accent-active: #005FD4;
+  --accent-soft: #E6F1FF;
+  --accent2: #18C6E8;
+
+  
+  --sd-blue-1: #E6F1FF;
+  --sd-blue-2: #BFD9FE;
+  --sd-blue-3: #96BFFD;
+  --sd-blue-4: #6EA4FC;
+  --sd-blue-5: #4B8DFB;
+  --sd-blue-6: #0077FA;
+  --sd-blue-7: #005FD4;
+  --sd-blue-8: #0049AD;
+  --sd-blue-9: #003687;
+  --sd-blue-10: #002661;
+
+  
+  --sd-cyan-1: #E8FAFD;
+  --sd-cyan-2: #C2F2FA;
+  --sd-cyan-3: #8FE6F5;
+  --sd-cyan-4: #5CD8EF;
+  --sd-cyan-5: #2FC6E2;
+  --sd-cyan-6: #18C6E8;
+  --sd-cyan-7: #0E8CA6;
+  --sd-cyan-8: #0B6B82;
+  --sd-cyan-9: #084D61;
+  --sd-cyan-10: #063447;
+
+  
+  --sd-gray-1: #F7F9FC;
+  --sd-gray-2: #EFF3F8;
+  --sd-gray-3: #E2E8F0;
+  --sd-gray-4: #C4CEDC;
+  --sd-gray-5: #97A5B9;
+  --sd-gray-6: #66748A;
+  --sd-gray-7: #45536B;
+  --sd-gray-8: #2A3649;
+  --sd-gray-9: #1A2332;
+  --sd-gray-10: #101623;
+
+  
+  --success: #15A35C;
+  --success-soft: #E8F7EF;
+  --warning: #E8930C;
+  --warning-soft: #FEF4E2;
+  --danger: #D9434E;
+  --danger-soft: #FCECEC;
+  --info: #0077FA;
+  --info-soft: #E6F1FF;
+  --reminder: #E8930C;
+  --positive: #15A35C;
+  --negative: #D9434E;
+
+  
+  --chart-series-1: #0077FA;
+  --chart-series-2: #2FC6E2;
+  --chart-series-3: #FFC53D;
+  --chart-series-4: #16B364;
+  --chart-other: #C4CEDC;
+  --chart-accent: #F2A33C;
+  --chart-accent-2: #E15B64;
+  --chart-positive: #15A35C;
+  --chart-warning: #E8930C;
+  --chart-negative: #D9434E;
+  --chart-grid: rgba(42, 54, 73, 0.12);
+  --chart-axis: #66748A;
+  --chart-label: #66748A;
+  --chart-tooltip-bg: #FFFFFF;
+
+  
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 999px;
+  
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --shadow-1: 0 1px 2px rgba(16, 22, 35, 0.04), 0 1px 6px -1px rgba(16, 22, 35, 0.06);
+  --shadow-2: 0 3px 6px -4px rgba(16, 22, 35, 0.08), 0 6px 16px rgba(16, 22, 35, 0.08);
+  --shadow-3: 0 6px 16px -8px rgba(16, 22, 35, 0.12), 0 9px 28px 8px rgba(16, 22, 35, 0.08);
+
+  
+  --control-h: 32px;
+  --control-h-sm: 24px;
+  --control-h-lg: 40px;
+  --font-base: 14px;
+  --font-sm: 12px;
+  --font-lg: 16px;
+  --font-display: 'MiSans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  /* 数据/指标数字字体。
+     --font-mono 仅授权用于 code / .sd-code / .sd-table .num（代码与表格数字列），
+     其中 'SFMono-Regular' 在 Windows 不存在会回退 Consolas，不宜用于大号数字。
+     卡片指标值、统计数字、编码/文号等「数据数字」统一走 --font-num + tabular-nums。 */
+  --font-num: var(--font-sans);
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --duration: 200ms;
+  --duration-fast: 120ms;
+  --duration-slow: 600ms;
+  --duration-draw: 900ms;
+
+  /* 中文墨迹微调（--ink-nudge）：中日韩字形的墨迹中心比行框中心低约 0.05em。
+     凡「非文字元素要与文字首行视觉居中」的场景都叠加这个偏移，使 translateY 落点从
+     行框中心修正到墨迹中心：
+       · 标题装饰（切割元素 / 双斜线）      —— 见 .sd-title-cut / .sd-title-slashes / .sd-card__title
+       · 反馈卡图标（.sd-alert）与轻提示（.sd-message）
+     Chrome 实测：标题装饰 24·20·16px 残差 ≤0.3px；alert 15×15 图标残差 ≤0.2px。
+     与字号等比，改这一个值即可整体微调。（v1.9–v1.11 旧名 --title-mark-nudge，v1.12 更名） */
+  --ink-nudge: 0.05em;
+
+  /* 排版字号 token（全站 font-size 统一走这里，基准档为 1440px 设计稿值） */
+  --fs-10: 10px;
+  --fs-11: 11px;
+  --fs-12: 12px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-24: 24px;
+  --fs-28: 28px;
+  --fs-48: 48px;
+
+  /* 布局容器 token
+     --content-max：内容区宽度上限；默认 100% —— 内容随视口等宽铺满，不设固定上限
+     --sidebar-w  ：侧边菜单展开宽（规范值 232px，各断点一致） */
+  --content-max: 100%;
+  --sidebar-w: 232px;
+}
+@font-face { font-family: 'MiSans'; src: url('./fonts/MiSans-Regular.otf') format('opentype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'MiSans'; src: url('./fonts/MiSans-Medium.otf') format('opentype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'MiSans'; src: url('./fonts/MiSans-Semibold.otf') format('opentype'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'MiSans'; src: url('./fonts/MiSans-Bold.otf') format('opentype'); font-weight: 700; font-display: swap; }
+
+/* ==================== 响应式断点 ====================
+   内容区不设宽度上限（100%），从 1440 到 4K 一律随视口等宽铺满；此处只放大字号与间距。
+   大屏放大（min-width 上探）：≥1920 ×1.10；≥2560 ×1.22，字号取整。
+   用法：媒体查询内重定义 :root 变量，全站引用处自动生效。
+   （侧栏展开宽统一 232px，各断点保持一致） */
+@media (min-width: 1920px) {
+  :root {
+    --fs-10: 11px; --fs-11: 12px; --fs-12: 13px; --fs-13: 14px;
+    --fs-14: 15px; --fs-16: 18px; --fs-24: 26px; --fs-28: 31px; --fs-48: 53px;
+    --space-1: 4px; --space-2: 9px; --space-3: 13px; --space-4: 18px;
+    --space-5: 26px; --space-6: 35px; --space-7: 53px; --space-8: 70px;
+  }
+}
+@media (min-width: 2560px) {
+  :root {
+    --fs-10: 12px; --fs-11: 13px; --fs-12: 15px; --fs-13: 16px;
+    --fs-14: 17px; --fs-16: 20px; --fs-24: 29px; --fs-28: 34px; --fs-48: 59px;
+    --space-1: 5px; --space-2: 10px; --space-3: 15px; --space-4: 20px;
+    --space-5: 29px; --space-6: 39px; --space-7: 59px; --space-8: 78px;
+  }
+}
+@media (max-width: 768px) {
+  :root { --content-max: 100%; }
+}
